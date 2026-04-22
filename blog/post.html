@@ -347,8 +347,8 @@
       <span>Beluga</span>
     </a>
     <div class="nav-links">
-      <a href="/blog" class="nav-link">Blog</a>
-      <a href="#" class="nav-link">Services</a>
+      <a href="index.html" class="nav-link">Blog</a>
+      <a href="../" class="nav-link">Services</a>
       <a href="#" class="nav-cta">Get in touch</a>
     </div>
   </nav>
@@ -587,10 +587,10 @@
 
       const tags = (post.Tags || '').split(',').map(t => t.trim()).filter(Boolean);
       const tagsHtml = tags.map(t =>
-        `<a href="/blog/tag/${encodeURIComponent(t.toLowerCase())}" class="post-tag">${t}</a>`
+        `<a href="tag.html?tag=${encodeURIComponent(t.toLowerCase())}" class="post-tag">${t}</a>`
       ).join('');
       const tagsFooter = tags.map(t =>
-        `<a href="/blog/tag/${encodeURIComponent(t.toLowerCase())}" class="tag-pill">${t}</a>`
+        `<a href="tag.html?tag=${encodeURIComponent(t.toLowerCase())}" class="tag-pill">${t}</a>`
       ).join('');
 
       const initials = (post.Author || 'B').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
@@ -611,9 +611,9 @@
         <div class="post-hero">
           <div class="post-hero-inner">
             <div class="post-breadcrumb">
-              <a href="/blog">Blog</a>
+              <a href="index.html">Blog</a>
               <span>›</span>
-              <a href="/blog/category/${post.Category_Slug || 'general'}">${post.Category || 'General'}</a>
+              <a href="tag.html?tag=${post.Category_Slug || 'general'}">${post.Category || 'General'}</a>
               <span>›</span>
               <span>${post.Title}</span>
             </div>

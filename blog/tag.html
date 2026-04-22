@@ -161,9 +161,8 @@
 const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
 
 function getTagFromUrl() {
-  // /blog/tag/my-tag
-  const parts = window.location.pathname.replace(/\/$/,'').split('/');
-  return decodeURIComponent(parts[parts.length - 1]);
+  // /blog/tag.html?tag=my-tag
+  return new URLSearchParams(window.location.search).get('tag') || '';
 }
 
 function formatDate(s) {
@@ -196,20 +195,20 @@ function buildCards(posts) {
 
     return `
     <article class="post-card">
-      <a href="${p.Url||'#'}" class="card-image">${imgHtml}</a>
+      <a href="post.html?slug=${p.Slug}" class="card-image">${imgHtml}</a>
       <div class="card-body">
         <div class="card-meta">
           <span class="card-cat">${p.Category||'General'}</span>
           <span class="card-date">${formatDate(p.Date)}</span>
         </div>
-        <a href="${p.Url||'#'}"><h2 class="card-title">${p.Title}</h2></a>
+        <a href="post.html?slug=${p.Slug}"><h2 class="card-title">${p.Title}</h2></a>
         <p class="card-desc">${cleanDesc(p.Description)}</p>
         <div class="card-footer">
           <div class="card-author">
             <div class="card-avatar">${initials(p.Author)}</div>
             <span class="card-author-name">${p.Author||'Beluga'}</span>
           </div>
-          <a href="${p.Url||'#'}" class="card-read">Read →</a>
+          <a href="post.html?slug=${p.Slug}" class="card-read">Read →</a>
         </div>
       </div>
     </article>`;
@@ -287,13 +286,13 @@ Papa.parse(CSV_URL, {
 
     // Related tags bar
     const relatedHtml = tagIndexes.map(t => `
-      <a href="/blog/tag/${t.Slug}" class="related-tag ${t.Slug === currentTag ? 'current' : ''}">#${t.Title||t.Slug}</a>
+      <a href="tag.html?tag=${t.Slug}" class="related-tag ${t.Slug === currentTag ? 'current' : ''}">#${t.Title||t.Slug}</a>
     `).join('');
 
     document.getElementById('app').innerHTML = `
       <section class="tag-hero">
         <div class="tag-hero-inner">
-          <a href="/blog" class="tag-hero-back">← Back to Blog</a>
+          <a href="index.html" class="tag-hero-back">← Back to Blog</a>
           <div class="tag-badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
             Tag
@@ -314,7 +313,7 @@ Papa.parse(CSV_URL, {
         <div class="tag-cta">
           <h2>Get expert insights delivered</h2>
           <p>Join thousands of localization professionals who read the Beluga blog.</p>
-          <a href="/blog" class="btn-accent">Browse all articles</a>
+          <a href="index.html" class="btn-accent">Browse all articles</a>
         </div>
       </main>
     `;

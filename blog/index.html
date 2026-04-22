@@ -51,7 +51,7 @@
         "publisher": { "@id": "https://belugalinguistics.com/#organization" },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": { "@type": "EntryPoint", "urlTemplate": "https://belugalinguistics.com/blog/search?q={search_term_string}" },
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://belugalinguistics.com/blog/search.html?q={search_term_string}" },
           "query-input": "required name=search_term_string"
         }
       },
@@ -83,7 +83,7 @@
           "@type": "BreadcrumbList",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://belugalinguistics.com" },
-            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://belugalinguistics.com/blog" }
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://belugalinguistics.com/blog/index.html" }
           ]
         }
       }
@@ -201,7 +201,7 @@
     <span>Beluga</span>
   </a>
   <div class="nav-links">
-    <a href="/blog" class="nav-link active">Blog</a>
+    <a href="./index.html" class="nav-link active">Blog</a>
     <a href="#" class="nav-link">Services</a>
     <a href="#" class="nav-cta">Get in touch</a>
   </div>
@@ -266,20 +266,20 @@ function buildCards(posts) {
 
   return posts.map(p => {
     const tags = (p.Tags||'').split(',').map(t=>t.trim()).filter(Boolean);
-    const tagsHtml = tags.map(t=>`<span class="card-tag" onclick="setFilter('${t}',null)">${t}</span>`).join('');
+    const tagsHtml = tags.map(t=>`<span class="card-tag" onclick="window.location.href='tag.html?tag='+encodeURIComponent('${t}')">${t}</span>`).join('');
     const imgHtml = p.Image
       ? `<img src="${p.Image}" alt="${p.Image_Alt||p.Title}" loading="lazy">`
       : `<div class="card-image-placeholder"><svg width="48" height="50" viewBox="0 0 616 635" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M596 624.5L528 624.5L519 620.5L510.5 611L306 172.5L303.5 175L102.5 609L93 620.5L84 624.5L19 624.5L14 622.5L10.5 618L10.5 608L17.5 590L271.5 55L288.5 22L300 10.5L311 9.5L315 11.5L324.5 22L333.5 38L348.5 72L601.5 598L605.5 610L605.5 617L601 622.5L596 624.5Z"/></svg></div>`;
 
     return `
     <article class="post-card">
-      <a href="${p.Url||'#'}" class="card-image">${imgHtml}</a>
+      <a href="post.html?slug=${p.Slug}" class="card-image">${imgHtml}</a>
       <div class="card-body">
         <div class="card-meta">
           <span class="card-cat">${p.Category||'General'}</span>
           <span class="card-date">${formatDate(p.Date)}</span>
         </div>
-        <a href="${p.Url||'#'}"><h2 class="card-title">${p.Title}</h2></a>
+        <a href="post.html?slug=${p.Slug}"><h2 class="card-title">${p.Title}</h2></a>
         <p class="card-desc">${cleanDesc(p.Description)}</p>
         ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
         <div class="card-footer">
@@ -287,7 +287,7 @@ function buildCards(posts) {
             <div class="card-avatar">${initials(p.Author)}</div>
             <span class="card-author-name">${p.Author||'Beluga'}</span>
           </div>
-          <a href="${p.Url||'#'}" class="card-read">Read →</a>
+          <a href="post.html?slug=${p.Slug}" class="card-read">Read →</a>
         </div>
       </div>
     </article>`;

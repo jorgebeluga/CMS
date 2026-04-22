@@ -50,7 +50,7 @@
         "publisher": { "@id": "https://belugalinguistics.com/#organization" },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": { "@type": "EntryPoint", "urlTemplate": "https://belugalinguistics.com/blog/search?q={search_term_string}" },
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://belugalinguistics.com/blog/search.html?q={search_term_string}" },
           "query-input": "required name=search_term_string"
         }
       },
@@ -79,8 +79,8 @@
           "@type": "BreadcrumbList",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://belugalinguistics.com" },
-            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://belugalinguistics.com/blog" },
-            { "@type": "ListItem", "position": 3, "name": "Search", "item": "https://belugalinguistics.com/blog/search" }
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://belugalinguistics.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "Search", "item": "https://belugalinguistics.com/blog/search.html" }
           ]
         }
       }
@@ -207,8 +207,8 @@
     <span>Beluga</span>
   </a>
   <div class="nav-links">
-    <a href="/blog" class="nav-link">Blog</a>
-    <a href="#" class="nav-link">Services</a>
+    <a href="index.html" class="nav-link">Blog</a>
+    <a href="../" class="nav-link">Services</a>
     <a href="#" class="nav-cta">Get in touch</a>
   </div>
 </nav>
@@ -349,17 +349,17 @@ function buildResultCard(p, q) {
 
   return `
   <article class="result-card">
-    <a href="${p.Url||'#'}" class="result-img">${imgHtml}</a>
+    <a href="post.html?slug=${p.Slug}" class="result-img">${imgHtml}</a>
     <div class="result-body">
       <div class="result-meta">
         <span class="result-cat">${p.Category||'General'}</span>
         <span class="result-date">${formatDate(p.Date)}</span>
       </div>
-      <a href="${p.Url||'#'}"><h2 class="result-title">${title}</h2></a>
+      <a href="post.html?slug=${p.Slug}"><h2 class="result-title">${title}</h2></a>
       <p class="result-desc">${desc}</p>
       <div class="result-footer">
         <div class="result-tags">${tagsHtml}</div>
-        <a href="${p.Url||'#'}" class="result-read">Read article →</a>
+        <a href="post.html?slug=${p.Slug}" class="result-read">Read article →</a>
       </div>
     </div>
   </article>`;
