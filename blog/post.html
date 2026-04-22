@@ -124,6 +124,28 @@
       const toc = JSON.parse(post.Headings || '[]');
       const tocHtml = toc.map(h => `<li class="toc-item" style="padding-left:${(h.level-2)*15}px"><a href="#${h.anchor}">${h.text}</a></li>`).join('');
 
+      // Render tags
+      const tags = (post.Tags || '').split(',').map(t => t.trim()).filter(Boolean);
+      const tagsHtml = tags.length ? `
+        <div class="post-tags" style="margin-top: 3rem; display: flex; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--beluga-color-muted); padding-top: 2rem;">
+          <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: rgba(28,4,69,0.4); width: 100%; margin-bottom: 0.5rem; display: block;">Tagged in</span>
+          ${tags.map(t => `<a href="tag.html?tag=${encodeURIComponent(t)}" style="background:var(--beluga-color-muted); color: var(--beluga-color-primary); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; transition: var(--beluga-transition-fast);">#${t}</a>`).join('')}
+        </div>
+      ` : '';
+
+      // Fix double image: if Markdown_Body starts with the same image, we strip it
+      let bodyHtml = marked.parse(post.Markdown_Body || '');
+      if (post.Image) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = bodyHtml;
+        const firstImg = tempDiv.querySelector('img');
+        // Si la primera imagen del MD coincide con la de portada, la quitamos
+        if (firstImg && (post.Image.includes(firstImg.getAttribute('src')) || firstImg.src === post.Image)) {
+           firstImg.parentElement.tagName === 'P' ? firstImg.parentElement.remove() : firstImg.remove();
+           bodyHtml = tempDiv.innerHTML;
+        }
+      }
+
       document.getElementById('app').innerHTML = `
         <div class="post-hero">
           <div class="post-hero-inner">
@@ -137,7 +159,10 @@
         </div>
         ${post.Image ? `<div class="featured-image-wrap"><img src="${post.Image}"></div>` : ''}
         <div class="post-layout">
-          <article class="post-article">${marked.parse(post.Markdown_Body || '')}</article>
+          <article class="post-article">
+            ${bodyHtml}
+            ${tagsHtml}
+          </article>
           <aside class="sidebar">
             <div class="sidebar-toc">
               <div class="toc-title">In this article</div>

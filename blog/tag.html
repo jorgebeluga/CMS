@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Tag — Beluga Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    :root {
+      --primary: #1C0445; --secondary: #fff; --accent: #FFD100;
+      --muted: #F2F0EF; --surface: #FCFCFC; --info: #0C6FF9;
+      --font-h: 'Libre Baskerville', serif; --font-b: 'Inter', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-b); background: var(--surface); color: var(--primary); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+    .nav { background: var(--primary); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-family: var(--font-h); font-weight: 700; }
+    .nav-logo svg { width: 32px; height: 33px; }
+    
+    .hero { background: var(--primary); color: #fff; padding: 4rem 2rem; text-align: center; }
+    .hero h1 { font-family: var(--font-h); font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .hero p { color: rgba(255,255,255,0.6); }
+
+    .main { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+    
+    .card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.2s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .card-img { aspect-ratio: 16/9; background: var(--muted); }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 1.5rem; }
+    .card-title { font-family: var(--font-h); font-size: 1.25rem; margin-bottom: 0.75rem; }
+    .card-meta { font-size: 0.8rem; color: #888; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
+
+    .footer { background: var(--primary); color: rgba(255,255,255,0.5); text-align: center; padding: 3rem; margin-top: 4rem; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="../" class="nav-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635"><path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/><path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/></svg>
+      <span>Beluga</span>
+    </a>
+  </nav>
+
+  <header class="hero">
+    <h1 id="tag-title">Tag</h1>
+    <p id="tag-count">Finding articles...</p>
+  </header>
+
+  <main class="main">
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Beluga Linguistics</p>
+  </footer>
+
+  <script>
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
+    
+    const tag = new URLSearchParams(window.location.search).get('tag');
+    document.getElementById('tag-title').textContent = '#' + tag;
+    document.title = '#' + tag + ' — Beluga Blog';
+
+    Papa.parse(CSV_URL, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const posts = results.data.filter(r => 
+          r.Record_Type === 'post_detail' && 
+          (r.Tags || '').split(',').map(t => t.trim()).includes(tag)
+        );
+        
+        document.getElementById('tag-count').textContent = `${posts.length} article${posts.length !== 1 ? 's' : ''} tagged with #${tag}`;
+        
+        document.getElementById('grid').innerHTML = posts.map(p => `
+          <article class="card">
+            <a href="post.html?slug=${p.Slug}" class="card-img">
+              <img src="${p.Image || 'https://placehold.co/600x400/1C0445/FFFFFF?text=Beluga'}" alt="">
+            </a>
+            <div class="card-body">
+              <div class="card-meta">${p.Category}</div>
+              <a href="post.html?slug=${p.Slug}"><h2 class="card-title">${p.Title}</h2></a>
+              <p style="font-size:0.9rem; color:#666">${p.Description.substring(0, 100)}...</p>
+            </div>
+          </article>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>
