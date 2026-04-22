@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO -->
+  <title>Blog — Beluga Linguistics | Localization & Translation Insights</title>
+  <meta name="description" content="Expert insights on localization, translation technology, LSP management, and global content strategy from the Beluga Linguistics team.">
+  <meta name="robots" content="index,follow">
+  <meta name="keywords" content="localization, translation, LSP, TMS, language services, globalization, L10n, i18n, content strategy">
+  <meta name="author" content="Beluga Linguistics">
+  <meta name="publisher" content="Beluga Linguistics">
+  <meta name="copyright" content="© 2025 Beluga Linguistics">
+  <meta name="language" content="en">
+  <meta name="category" content="Blog">
+  <link rel="canonical" href="https://belugalinguistics.com/blog">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Beluga Linguistics">
+  <meta property="og:title" content="Blog — Beluga Linguistics | Localization & Translation Insights">
+  <meta property="og:description" content="Expert insights on localization, translation technology, LSP management, and global content strategy.">
+  <meta property="og:url" content="https://belugalinguistics.com/blog">
+  <meta property="og:image" content="https://belugalinguistics.com/assets/blog-og-default.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Beluga Linguistics Blog">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@belugalinguistics">
+  <meta name="twitter:creator" content="@belugalinguistics">
+  <meta name="twitter:title" content="Blog — Beluga Linguistics">
+  <meta name="twitter:description" content="Expert insights on localization, translation technology, and global content strategy.">
+  <meta name="twitter:image" content="https://belugalinguistics.com/assets/blog-og-default.jpg">
+  <meta name="twitter:image:alt" content="Beluga Linguistics Blog">
+
+  <!-- Fonts & Libraries -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <style>
+    :root {
+      --primary:#1C0445; --secondary:#fff; --accent:#FFD100;
+      --muted:#F2F0EF; --surface:#FCFCFC; --info:#0C6FF9;
+      --font-h:'Libre Baskerville',serif; --font-b:'Inter',sans-serif;
+      --r-btn:37px; --tr:all 0.15s linear;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-b);background:var(--surface);color:var(--primary);line-height:1.7}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+
+    /* Nav */
+    .nav{background:var(--primary);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:68px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px}
+    .nav-logo svg{width:32px;height:33px}
+    .nav-logo span{font-family:var(--font-h);font-weight:700;font-size:1.2rem;color:#fff}
+    .nav-links{display:flex;gap:2rem;align-items:center}
+    .nav-link{color:rgba(255,255,255,0.75);font-size:0.9rem;font-weight:500;transition:var(--tr)}
+    .nav-link:hover{color:var(--accent)}
+    .nav-cta{background:var(--accent);color:var(--primary);font-weight:600;font-size:0.875rem;padding:10px 24px;border-radius:var(--r-btn);transition:var(--tr)}
+    .nav-cta:hover{background:#e8be00}
+
+    /* Hero */
+    .hero{background:var(--primary);color:#fff;padding:6rem 2rem;text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,209,0,0.1) 0%,transparent 60%)}
+    .hero-inner{position:relative;z-index:1;max-width:800px;margin:0 auto}
+    .hero h1{font-family:var(--font-h);font-size:clamp(2.5rem,6vw,3.5rem);margin-bottom:1.5rem;line-height:1.2}
+    .hero p{font-size:1.1rem;color:rgba(255,255,255,0.7);max-width:600px;margin:0 auto 2.5rem}
+    
+    /* Search Bar */
+    .search-box{background:#fff;border-radius:50px;padding:6px;display:flex;max-width:500px;margin:0 auto;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+    .search-box input{flex:1;border:none;padding:0 20px;font-size:1rem;font-family:inherit;outline:none;background:transparent}
+    .search-box button{background:var(--primary);color:#fff;border:none;padding:12px 24px;border-radius:50px;font-weight:600;cursor:pointer;transition:var(--tr)}
+    .search-box button:hover{background:#3a1470}
+
+    /* Main */
+    .main{max-width:1200px;margin:0 auto;padding:4rem 2rem}
+    
+    /* Filter Bar */
+    .filters{display:flex;align-items:center;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem}
+    .filter-group{display:flex;gap:10px;align-items:center;overflow-x:auto;padding-bottom:5px}
+    .filter-label{font-size:0.8rem;font-weight:700;text-transform:uppercase;color:rgba(28,4,69,0.4);letter-spacing:0.1em}
+    .pill{background:var(--muted);padding:6px 18px;border-radius:30px;font-size:0.85rem;font-weight:600;transition:var(--tr);cursor:pointer;white-space:nowrap}
+    .pill:hover, .pill.active{background:var(--primary);color:#fff}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
+    
+    /* Post Card */
+    .card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(28,4,69,0.06);transition:var(--tr);display:flex;flex-direction:column;position:relative}
+    .card:hover{transform:translateY(-8px);box-shadow:0 15px 45px rgba(28,4,69,0.12)}
+    .card-img{aspect-ratio:16/10;background:var(--muted);overflow:hidden}
+    .card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+    .card:hover .card-img img{transform:scale(1.05)}
+    .card-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+    .card-tag{position:absolute;top:1rem;left:1rem;background:var(--accent);color:var(--primary);font-size:0.7rem;font-weight:800;padding:4px 12px;border-radius:30px;text-transform:uppercase;letter-spacing:0.05em}
+    .card-date{font-size:0.75rem;color:rgba(28,4,69,0.4);margin-bottom:0.75rem;font-weight:600}
+    .card-title{font-family:var(--font-h);font-size:1.25rem;line-height:1.3;margin-bottom:1rem;color:var(--primary)}
+    .card-text{font-size:0.9rem;color:rgba(28,4,69,0.6);margin-bottom:1.5rem;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .card-footer{padding-top:1rem;border-top:1px solid var(--muted);display:flex;align-items:center;justify-content:space-between}
+    .card-author{font-size:0.8rem;font-weight:600}
+    .card-more{font-size:0.8rem;font-weight:700;color:var(--info)}
+
+    /* Footer */
+    .footer{background:var(--primary);color:rgba(255,255,255,0.6);text-align:center;padding:4rem 2rem;font-size:0.9rem}
+    .footer a{color:var(--accent)}
+
+    /* Responsive */
+    @media (max-width: 991px) { .grid{grid-template-columns:repeat(2,1fr)} .nav-links{display:none} }
+    @media (max-width: 640px) { .grid{grid-template-columns:1fr} .hero{padding:4rem 1rem} }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../" class="nav-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635"><path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/><path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/></svg>
+      <span>Beluga</span>
+    </a>
+    <div class="nav-links">
+      <a href="./" class="nav-link">Blog</a>
+      <a href="../" class="nav-link">Home</a>
+      <a href="#" class="nav-cta">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Localization Insights</h1>
+      <p>Techniques, trends and strategy for global content professionals.</p>
+      <form class="search-box" action="search.html" method="GET">
+        <input type="text" name="q" placeholder="Search articles...">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </section>
+
+  <main class="main">
+    <div class="filters">
+      <div class="filter-group">
+        <span class="filter-label">Category:</span>
+        <div class="pill active" onclick="filterPosts('all')">All</div>
+        <div class="pill" onclick="filterPosts('Technology')">Technology</div>
+        <div class="pill" onclick="filterPosts('Localization')">Localization</div>
+        <div class="pill" onclick="filterPosts('Business')">Business</div>
+      </div>
+    </div>
+
+    <div class="grid" id="blog-grid">
+      <!-- Cards rendered by JS -->
+      <div style="grid-column: 1/-1; text-align:center; padding: 3rem; color: #ccc;">Loading posts...</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 <a href="/">Beluga Linguistics</a>. Full static Headless CMS Demo.</p>
+  </footer>
+
+  <script>
+    // URL del CSV (Cámbiala por la tuya una vez publicada)
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
+    const DEMO_CSV = CSV_URL;
+
+    let allPosts = [];
+
+    function renderCards(posts) {
+      const grid = document.getElementById('blog-grid');
+      if (posts.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 3rem;">No posts found.</div>';
+        return;
+      }
+
+      grid.innerHTML = posts.map(p => `
+        <article class="card">
+          <a href="post.html?slug=${p.Slug}" class="card-img">
+            <img src="${p.Image || 'https://placehold.co/600x400/1C0445/FFFFFF?text=Beluga+Blog'}" alt="${p.Image_Alt || p.Title}">
+          </a>
+          <div class="card-body">
+            <span class="card-tag">${p.Category || 'General'}</span>
+            <div class="card-date">${new Date(p.Date).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})}</div>
+            <a href="post.html?slug=${p.Slug}"><h2 class="card-title">${p.Title}</h2></a>
+            <p class="card-text">${(p.Description || '').replace(/!\[.*?\]\(.*?\)/g,'').substring(0, 120)}...</p>
+            <div class="card-footer">
+              <span class="card-author">By ${p.Author}</span>
+              <a href="post.html?slug=${p.Slug}" class="card-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function filterPosts(cat) {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      const filtered = (cat === 'all') 
+        ? allPosts 
+        : allPosts.filter(p => p.Category === cat);
+      renderCards(filtered);
+    }
+
+    Papa.parse(DEMO_CSV, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        allPosts = results.data.filter(r => r.Record_Type === 'post_detail');
+        renderCards(allPosts);
+      }
+    });
+  </script>
+
+</body>
+</html>

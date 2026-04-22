@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Loading...</title>
+  <meta name="description" id="meta-description" content="">
+  <meta name="robots" id="meta-robots" content="index,follow">
+  <link rel="canonical" id="canonical-url" href="">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <style>
+    :root {
+      --beluga-color-primary:   #1C0445;
+      --beluga-color-secondary: #FFFFFF;
+      --beluga-color-accent:    #FFD100;
+      --beluga-color-muted:     #F2F0EF;
+      --beluga-color-surface:   #FCFCFC;
+      --beluga-color-info:      #0C6FF9;
+      --beluga-font-heading:    'Libre Baskerville', serif;
+      --beluga-font-body:       'Inter', sans-serif;
+      --beluga-radius-button:   37px;
+      --beluga-transition-fast: all 0.15s linear;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--beluga-font-body); background: var(--beluga-color-surface); color: var(--beluga-color-primary); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Nav */
+    .nav { background: var(--beluga-color-primary); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo svg { width: 32px; height: 33px; }
+    .nav-logo span { font-family: var(--beluga-font-heading); font-weight: 700; font-size: 1.2rem; color: #fff; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.75); font-size: 0.9rem; font-weight: 500; transition: var(--beluga-transition-fast); }
+    .nav-link:hover { color: var(--beluga-color-accent); }
+    
+    /* Post Content */
+    .post-hero { background: var(--beluga-color-primary); color: #fff; padding: 5rem 2rem 4rem; }
+    .post-hero-inner { max-width: 860px; margin: 0 auto; }
+    .post-tag { background: rgba(255,209,0,0.15); color: var(--beluga-color-accent); font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; margin-bottom: 1rem; }
+    .post-title { font-family: var(--beluga-font-heading); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.2; margin-bottom: 1.5rem; }
+    .post-author { display: flex; align-items: center; gap: 10px; font-size: 0.875rem; color: rgba(255,255,255,0.7); }
+    .post-author-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--beluga-color-accent); color: var(--beluga-color-primary); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+    
+    .featured-image-wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem; transform: translateY(-2rem); }
+    .featured-image-wrap img { width: 100%; border-radius: 16px; box-shadow: 0 20px 60px rgba(28,4,69,0.2); }
+
+    .post-layout { max-width: 1100px; margin: 0 auto; padding: 0 2rem 5rem; display: grid; grid-template-columns: 1fr 280px; gap: 4rem; }
+    .post-article { font-size: 1.1rem; }
+    .post-article h2, .post-article h3 { font-family: var(--beluga-font-heading); margin: 2.5rem 0 1rem; color: var(--beluga-color-primary); }
+    .post-article p { margin-bottom: 1.5rem; color: #444; }
+    .post-article blockquote { border-left: 4px solid var(--beluga-color-accent); padding-left: 1.5rem; font-style: italic; color: #666; margin: 2rem 0; }
+    
+    .sidebar-toc { background: var(--beluga-color-muted); padding: 1.5rem; border-radius: 16px; position: sticky; top: 100px; }
+    .toc-title { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 0.05em; }
+    .toc-list { list-style: none; }
+    .toc-item { margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .toc-item a:hover { color: var(--beluga-color-info); }
+
+    .loading { display: flex; align-items: center; justify-content: center; height: 60vh; color: #999; }
+    .spinner { width: 40px; height: 40px; border: 4px solid #eee; border-top-color: var(--beluga-color-accent); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .sidebar-toc { display: none; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../" class="nav-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635"><path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/><path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/></svg>
+      <span>Beluga</span>
+    </a>
+    <div class="nav-links">
+      <a href="./" class="nav-link">Blog</a>
+      <a href="../" class="nav-link">Home</a>
+    </div>
+  </nav>
+
+  <div id="app">
+    <div class="loading">
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <script>
+    const DEMO_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
+
+    function getSlug() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('slug');
+    }
+
+    function setMeta(attr, name, content) {
+      let el = document.querySelector(`meta[${attr}="${name}"]`);
+      if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
+      el.setAttribute('content', content);
+    }
+
+    function injectSeo(post) {
+      const title = post.Meta_Title || post.Title;
+      document.title = title;
+      document.getElementById('page-title').textContent = title;
+      document.getElementById('meta-description').setAttribute('content', post.Meta_Description || post.Description);
+      document.getElementById('canonical-url').setAttribute('href', post.Canonical_URL || window.location.href);
+      
+      setMeta('property', 'og:title', title);
+      setMeta('property', 'og:image', post.Image || '');
+      setMeta('name', 'twitter:card', 'summary_large_image');
+    }
+
+    function renderPost(post) {
+      injectSeo(post);
+      const toc = JSON.parse(post.Headings || '[]');
+      const tocHtml = toc.map(h => `<li class="toc-item" style="padding-left:${(h.level-2)*15}px"><a href="#${h.anchor}">${h.text}</a></li>`).join('');
+
+      document.getElementById('app').innerHTML = `
+        <div class="post-hero">
+          <div class="post-hero-inner">
+            <span class="post-tag">${post.Category}</span>
+            <h1 class="post-title">${post.Title}</h1>
+            <div class="post-author">
+              <div class="post-author-avatar">${(post.Author||'B')[0]}</div>
+              <span>By ${post.Author} • ${new Date(post.Date).toLocaleDateString()}</span>
+            </div>
+          </div>
+        </div>
+        ${post.Image ? `<div class="featured-image-wrap"><img src="${post.Image}"></div>` : ''}
+        <div class="post-layout">
+          <article class="post-article">${marked.parse(post.Markdown_Body || '')}</article>
+          <aside class="sidebar">
+            <div class="sidebar-toc">
+              <div class="toc-title">In this article</div>
+              <ul class="toc-list">${tocHtml}</ul>
+            </div>
+          </aside>
+        </div>
+      `;
+    }
+
+    const slug = getSlug();
+    Papa.parse(DEMO_CSV, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const post = results.data.find(r => r.Slug === slug && r.Record_Type === 'post_detail');
+        if (post) renderPost(post);
+        else document.getElementById('app').innerHTML = '<div class="loading">Post not found.</div>';
+      }
+    });
+  </script>
+</body>
+</html>
