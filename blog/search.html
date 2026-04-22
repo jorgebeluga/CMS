@@ -3,498 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Primary SEO -->
-  <title>Search the Blog — Beluga Linguistics</title>
-  <meta name="description" content="Search articles on localization, translation technology, LSP management, and global content strategy on the Beluga Linguistics blog.">
-  <meta name="robots" content="noindex,follow">
-  <meta name="keywords" content="localization blog search, translation articles, language services insights, LSP resources">
-  <meta name="author" content="Beluga Linguistics">
-  <meta name="publisher" content="Beluga Linguistics">
-  <meta name="copyright" content="© 2025 Beluga Linguistics">
-  <meta name="language" content="en">
-  <link rel="canonical" href="https://belugalinguistics.com/blog/search">
-
-  <!-- Open Graph / Facebook / LinkedIn -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Beluga Linguistics">
-  <meta property="og:title" content="Search the Blog — Beluga Linguistics">
-  <meta property="og:description" content="Find articles on localization, translation technology, and language services strategy.">
-  <meta property="og:url" content="https://belugalinguistics.com/blog/search">
-  <meta property="og:image" content="https://belugalinguistics.com/assets/blog-og-default.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Beluga Linguistics Blog Search">
-  <meta property="og:locale" content="en_US">
-
-  <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@belugalinguistics">
-  <meta name="twitter:creator" content="@belugalinguistics">
-  <meta name="twitter:title" content="Search the Blog — Beluga Linguistics">
-  <meta name="twitter:description" content="Find articles on localization, translation technology, and language services strategy.">
-  <meta name="twitter:image" content="https://belugalinguistics.com/assets/blog-og-default.jpg">
-  <meta name="twitter:image:alt" content="Beluga Linguistics Blog Search">
-
-  <!-- Schema.org -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://belugalinguistics.com/#website",
-        "url": "https://belugalinguistics.com",
-        "name": "Beluga Linguistics",
-        "description": "Localization, translation technology and global content strategy.",
-        "publisher": { "@id": "https://belugalinguistics.com/#organization" },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": { "@type": "EntryPoint", "urlTemplate": "https://belugalinguistics.com/blog/search.html?q={search_term_string}" },
-          "query-input": "required name=search_term_string"
-        }
-      },
-      {
-        "@type": "Organization",
-        "@id": "https://belugalinguistics.com/#organization",
-        "name": "Beluga Linguistics",
-        "url": "https://belugalinguistics.com",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://belugalinguistics.com/assets/beluga-logo.svg",
-          "width": 200, "height": 60
-        },
-        "sameAs": [
-          "https://www.linkedin.com/company/beluga-linguistics",
-          "https://twitter.com/belugalinguistics"
-        ]
-      },
-      {
-        "@type": "SearchResultsPage",
-        "@id": "https://belugalinguistics.com/blog/search#webpage",
-        "url": "https://belugalinguistics.com/blog/search",
-        "name": "Search — Beluga Blog",
-        "isPartOf": { "@id": "https://belugalinguistics.com/#website" },
-        "breadcrumb": {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://belugalinguistics.com" },
-            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://belugalinguistics.com/blog/index.html" },
-            { "@type": "ListItem", "position": 3, "name": "Search", "item": "https://belugalinguistics.com/blog/search.html" }
-          ]
-        }
-      }
-    ]
-  }
-  </script>
-
+  <title>Search — Beluga Blog</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <style>
-    :root{--primary:#1C0445;--secondary:#fff;--accent:#FFD100;--muted:#F2F0EF;--surface:#FCFCFC;--info:#0C6FF9;--font-h:'Libre Baskerville',serif;--font-b:'Inter',sans-serif;--r-btn:37px;--tr:all 0.15s linear}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:var(--font-b);background:var(--surface);color:var(--primary);line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;height:auto;display:block}
-    main{flex:1}
-
-    /* Nav */
-    .nav{background:var(--primary);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:68px;position:sticky;top:0;z-index:100}
-    .nav-logo{display:flex;align-items:center;gap:10px}
-    .nav-logo svg{width:32px;height:33px}
-    .nav-logo span{font-family:var(--font-h);font-weight:700;font-size:1.2rem;color:#fff}
-    .nav-links{display:flex;gap:2rem;align-items:center}
-    .nav-link{color:rgba(255,255,255,.75);font-size:.9rem;font-weight:500;transition:var(--tr)}
-    .nav-link:hover{color:var(--accent)}
-    .nav-cta{background:var(--accent);color:var(--primary);font-weight:600;font-size:.875rem;padding:10px 24px;border-radius:var(--r-btn);transition:var(--tr)}
-    .nav-cta:hover{background:#e8be00}
-
-    /* Search Hero */
-    .search-hero{background:var(--primary);padding:4rem 2rem 5rem;position:relative;overflow:hidden}
-    .search-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,209,0,.06) 0%,transparent 60%)}
-    .search-hero-inner{max-width:680px;margin:0 auto;position:relative;z-index:1;text-align:center}
-    .search-hero h1{font-family:var(--font-h);font-weight:800;font-size:clamp(1.8rem,4vw,2.75rem);color:#fff;margin-bottom:.75rem;line-height:1.2}
-    .search-hero p{color:rgba(255,255,255,.55);font-size:.95rem;margin-bottom:2rem}
-    
-    .search-box{position:relative}
-    .search-input{width:100%;padding:18px 56px 18px 56px;border:none;border-radius:var(--r-btn);font-family:var(--font-b);font-size:1.05rem;background:#fff;color:var(--primary);outline:none;box-shadow:0 12px 40px rgba(0,0,0,.25);transition:var(--tr)}
-    .search-input:focus{box-shadow:0 12px 40px rgba(0,0,0,.3),0 0 0 3px rgba(255,209,0,.4)}
-    .search-input::placeholder{color:rgba(28,4,69,.35)}
-    .search-icon-left{position:absolute;left:20px;top:50%;transform:translateY(-50%);color:rgba(28,4,69,.35);pointer-events:none}
-    .search-clear{position:absolute;right:20px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(28,4,69,.35);font-size:1.2rem;line-height:1;padding:4px;transition:var(--tr);display:none}
-    .search-clear:hover{color:var(--primary)}
-    .search-clear.visible{display:block}
-
-    /* Filters strip */
-    .filters-strip{background:#fff;border-bottom:1px solid rgba(28,4,69,.08);padding:.875rem 2rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:68px;z-index:99;box-shadow:0 2px 12px rgba(28,4,69,.06)}
-    .filters-label{font-size:.75rem;font-weight:600;color:rgba(28,4,69,.4);text-transform:uppercase;letter-spacing:.08em;margin-right:4px;white-space:nowrap}
-    .filter-chip{font-size:.78rem;font-family:var(--font-b);font-weight:500;padding:5px 14px;border-radius:20px;border:1.5px solid rgba(28,4,69,.15);background:transparent;color:rgba(28,4,69,.65);cursor:pointer;transition:var(--tr);white-space:nowrap}
-    .filter-chip:hover{border-color:var(--primary);color:var(--primary)}
-    .filter-chip.active{background:var(--primary);border-color:var(--primary);color:#fff}
-
-    /* Results area */
-    .results-area{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 5rem}
-    .results-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:.75rem}
-    .results-count{font-size:.875rem;color:rgba(28,4,69,.5)}
-    .results-count strong{color:var(--primary);font-weight:700}
-    .sort-select{font-family:var(--font-b);font-size:.8rem;border:1.5px solid rgba(28,4,69,.15);border-radius:var(--r-btn);padding:6px 14px;background:#fff;color:var(--primary);cursor:pointer;outline:none}
-    .sort-select:focus{border-color:var(--primary)}
-
-    /* Results list (2-col on desktop) */
-    .results-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
-
-    /* Result card - horizontal */
-    .result-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(28,4,69,.07);transition:var(--tr);display:flex;gap:0}
-    .result-card:hover{box-shadow:0 8px 30px rgba(28,4,69,.13);transform:translateY(-2px)}
-    .result-img{width:140px;flex-shrink:0;overflow:hidden;background:var(--muted)}
-    .result-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-    .result-card:hover .result-img img{transform:scale(1.05)}
-    .result-img-placeholder{width:100%;height:100%;min-height:120px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),#3a1470)}
-    .result-body{padding:1.25rem;flex:1;display:flex;flex-direction:column}
-    .result-meta{display:flex;align-items:center;gap:8px;margin-bottom:.6rem;flex-wrap:wrap}
-    .result-cat{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--info);background:rgba(12,111,249,.08);padding:2px 8px;border-radius:10px}
-    .result-date{font-size:.72rem;color:rgba(28,4,69,.4)}
-    .result-title{font-family:var(--font-h);font-weight:700;font-size:1rem;line-height:1.35;color:var(--primary);margin-bottom:.5rem;transition:var(--tr)}
-    .result-card:hover .result-title{color:#3a1470}
-    .result-desc{font-size:.82rem;color:rgba(28,4,69,.6);line-height:1.6;flex:1;margin-bottom:.875rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .result-footer{display:flex;align-items:center;justify-content:space-between}
-    .result-tags{display:flex;gap:5px;flex-wrap:wrap}
-    .result-tag{font-size:.68rem;background:var(--muted);padding:2px 8px;border-radius:10px;color:rgba(28,4,69,.6)}
-    .result-read{font-size:.78rem;font-weight:600;color:var(--info);white-space:nowrap;transition:var(--tr)}
-    .result-read:hover{color:var(--primary)}
-
-    /* Highlight */
-    mark{background:rgba(255,209,0,.4);color:inherit;border-radius:2px;padding:0 1px}
-
-    /* Empty / no-query states */
-    .empty-state{text-align:center;padding:5rem 2rem;grid-column:1/-1}
-    .empty-icon{font-size:3rem;margin-bottom:1rem}
-    .empty-state h3{font-family:var(--font-h);font-size:1.4rem;margin-bottom:.5rem}
-    .empty-state p{color:rgba(28,4,69,.5);font-size:.9rem;margin-bottom:1.5rem}
-
-    /* Popular tags suggestion */
-    .popular-tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:1rem}
-    .pop-tag{font-size:.82rem;background:var(--muted);color:var(--primary);padding:6px 16px;border-radius:20px;cursor:pointer;transition:var(--tr);font-weight:500}
-    .pop-tag:hover{background:var(--accent)}
-
-    /* Spinner */
-    .spinner-wrap{display:flex;align-items:center;justify-content:center;padding:5rem;grid-column:1/-1}
-    .spinner{width:36px;height:36px;border:3px solid var(--muted);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* Footer */
-    .site-footer{background:var(--primary);color:rgba(255,255,255,.6);text-align:center;padding:2rem;font-size:.875rem}
-    .site-footer a{color:var(--accent)}
-
-    @media(max-width:991px){.results-list{grid-template-columns:1fr}.nav-links{display:none}}
-    @media(max-width:640px){
-      .result-img{width:100px}
-      .search-hero{padding:3rem 1rem 4rem}
-      .results-area{padding:2rem 1rem 4rem}
-      .filters-strip{padding:.75rem 1rem}
+    :root {
+      --primary: #1C0445; --secondary: #fff; --accent: #FFD100;
+      --muted: #F2F0EF; --surface: #FCFCFC; --info: #0C6FF9;
+      --font-h: 'Libre Baskerville', serif; --font-b: 'Inter', sans-serif;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-b); background: var(--surface); color: var(--primary); line-height: 1.7; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    
+    .nav { background: var(--primary); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-family: var(--font-h); font-weight: 700; }
+    
+    .search-hero { background: var(--primary); color: #fff; padding: 4rem 2rem; text-align: center; }
+    .search-box { max-width: 600px; margin: 2rem auto 0; position: relative; }
+    .search-input { width: 100%; padding: 15px 25px; border-radius: 30px; border: none; font-size: 1.1rem; outline: none; }
+
+    .results-area { max-width: 1000px; margin: 0 auto; padding: 3rem 2rem; }
+    .result-item { border-bottom: 1px solid var(--muted); padding: 2rem 0; }
+    .result-item h2 { font-family: var(--font-h); font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .result-item p { color: #666; font-size: 0.95rem; }
+    .result-link { color: var(--info); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-top: 1rem; display: inline-block; }
   </style>
 </head>
 <body>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">Beluga Blog</a>
+  </nav>
 
-<nav class="nav">
-  <a href="/blog" class="nav-logo">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635">
-      <path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/>
-      <path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/>
-    </svg>
-    <span>Beluga</span>
-  </a>
-  <div class="nav-links">
-    <a href="index.html" class="nav-link">Blog</a>
-    <a href="../" class="nav-link">Services</a>
-    <a href="#" class="nav-cta">Get in touch</a>
-  </div>
-</nav>
-
-<!-- Search Hero -->
-<section class="search-hero">
-  <div class="search-hero-inner">
-    <h1>Search the Blog</h1>
-    <p>Find articles on localization, translation tech, language strategy and more.</p>
+  <header class="search-hero">
+    <h1>Search results</h1>
     <div class="search-box">
-      <span class="search-icon-left">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      </span>
-      <input class="search-input" id="searchInput" type="text" placeholder="Search articles, topics, tags…" autocomplete="off" oninput="onSearch()" autofocus>
-      <button class="search-clear" id="clearBtn" onclick="clearSearch()" aria-label="Clear search">✕</button>
+      <input type="text" class="search-input" id="searchInput" placeholder="Search insights...">
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- Filters Strip -->
-<div class="filters-strip" id="filtersStrip">
-  <span class="filters-label">Filter:</span>
-  <button class="filter-chip active" data-filter="all" onclick="setFilter('all',this)">All</button>
-</div>
+  <main class="results-area">
+    <div id="resultsCount" style="margin-bottom: 2rem; font-weight: 700;"></div>
+    <div id="resultsList"></div>
+    <a href="index.html" style="display:block; margin-top:3rem; font-weight:700;">← Back to Blog</a>
+  </main>
 
-<!-- Results -->
-<main>
-  <div class="results-area">
-    <div class="results-meta" id="resultsMeta" style="display:none">
-      <span class="results-count" id="resultsCount"></span>
-      <select class="sort-select" id="sortSelect" onchange="renderResults()">
-        <option value="relevance">Sort: Relevance</option>
-        <option value="newest">Sort: Newest</option>
-        <option value="oldest">Sort: Oldest</option>
-      </select>
-    </div>
-    <div class="results-list" id="resultsList">
-      <div class="spinner-wrap"><div class="spinner"></div></div>
-    </div>
-  </div>
-</main>
+  <script>
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
+    const query = new URLSearchParams(window.location.search).get('q') || '';
+    
+    document.getElementById('searchInput').value = query;
 
-<footer class="site-footer">
-  <p>© 2025 <a href="/">Beluga Linguistics</a>. All rights reserved.</p>
-</footer>
+    Papa.parse(CSV_URL, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const posts = results.data.filter(r => 
+          r.Record_Type === 'post_detail' && (
+            (r.Title || '').toLowerCase().includes(query.toLowerCase()) ||
+            (r.Description || '').toLowerCase().includes(query.toLowerCase()) ||
+            (r.Tags || '').toLowerCase().includes(query.toLowerCase())
+          )
+        );
 
-<script>
-const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
-
-let allPosts  = [];
-let filtered  = [];
-let activeFilter = 'all';
-let allTags   = [];
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
-function getQueryParam(name) {
-  return new URLSearchParams(window.location.search).get(name) || '';
-}
-
-function formatDate(s) {
-  if (!s) return '';
-  const d = new Date(s);
-  if (isNaN(d)) return s;
-  return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
-}
-
-function initials(name) {
-  return (name||'B').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-}
-
-function cleanDesc(text) {
-  return (text||'').replace(/!\[.*?\]\(.*?\)/g,'').replace(/[#*_`]/g,'').trim();
-}
-
-function highlightText(text, query) {
-  if (!query) return text;
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
-}
-
-function computeScore(post, q) {
-  if (!q) return 0;
-  const ql = q.toLowerCase();
-  let score = 0;
-  if ((post.Title||'').toLowerCase().includes(ql))       score += 10;
-  if ((post.Tags||'').toLowerCase().includes(ql))        score += 6;
-  if ((post.Category||'').toLowerCase().includes(ql))    score += 4;
-  if ((post.Description||'').toLowerCase().includes(ql)) score += 2;
-  return score;
-}
-
-// ── Render ───────────────────────────────────────────────────────────────────
-function renderResults() {
-  const q        = document.getElementById('searchInput').value.trim();
-  const sort     = document.getElementById('sortSelect')?.value || 'relevance';
-  const metaEl   = document.getElementById('resultsMeta');
-  const countEl  = document.getElementById('resultsCount');
-  const listEl   = document.getElementById('resultsList');
-
-  // Sort
-  let sorted = [...filtered];
-  if (sort === 'newest') {
-    sorted.sort((a,b) => new Date(b.Date) - new Date(a.Date));
-  } else if (sort === 'oldest') {
-    sorted.sort((a,b) => new Date(a.Date) - new Date(b.Date));
-  } else if (q) {
-    sorted.sort((a,b) => computeScore(b,q) - computeScore(a,q));
-  }
-
-  const count = sorted.length;
-  metaEl.style.display = (q || activeFilter !== 'all') ? 'flex' : 'none';
-  countEl.innerHTML = q
-    ? `<strong>${count}</strong> result${count!==1?'s':''} for "<strong>${q}</strong>"`
-    : `<strong>${count}</strong> article${count!==1?'s':''}`;
-
-  if (!q && activeFilter === 'all') {
-    listEl.innerHTML = buildNoQuery();
-    return;
-  }
-
-  if (!sorted.length) {
-    listEl.innerHTML = buildNoResults(q);
-    return;
-  }
-
-  listEl.innerHTML = sorted.map(p => buildResultCard(p, q)).join('');
-}
-
-function buildResultCard(p, q) {
-  const tags = (p.Tags||'').split(',').map(t=>t.trim()).filter(Boolean);
-  const tagsHtml = tags.slice(0,3).map(t=>`<span class="result-tag">#${t}</span>`).join('');
-  const imgHtml = p.Image
-    ? `<img src="${p.Image}" alt="${p.Image_Alt||p.Title}" loading="lazy">`
-    : `<div class="result-img-placeholder"><svg width="32" height="32" viewBox="0 0 616 635" fill="rgba(255,255,255,.15)"><path d="M596 624.5L528 624.5L519 620.5L510.5 611L306 172.5L303.5 175L102.5 609L93 620.5L84 624.5L19 624.5L14 622.5L10.5 618L10.5 608L17.5 590L271.5 55L288.5 22L300 10.5L311 9.5L315 11.5L324.5 22L333.5 38L348.5 72L601.5 598L605.5 610L605.5 617L601 622.5L596 624.5Z"/></svg></div>`;
-
-  const title = highlightText(p.Title||'', q);
-  const desc  = highlightText(cleanDesc(p.Description).slice(0,200), q);
-
-  return `
-  <article class="result-card">
-    <a href="post.html?slug=${p.Slug}" class="result-img">${imgHtml}</a>
-    <div class="result-body">
-      <div class="result-meta">
-        <span class="result-cat">${p.Category||'General'}</span>
-        <span class="result-date">${formatDate(p.Date)}</span>
-      </div>
-      <a href="post.html?slug=${p.Slug}"><h2 class="result-title">${title}</h2></a>
-      <p class="result-desc">${desc}</p>
-      <div class="result-footer">
-        <div class="result-tags">${tagsHtml}</div>
-        <a href="post.html?slug=${p.Slug}" class="result-read">Read article →</a>
-      </div>
-    </div>
-  </article>`;
-}
-
-function buildNoQuery() {
-  const tagPills = allTags.slice(0,10).map(t =>
-    `<span class="pop-tag" onclick="tagSearch('${t}')">#${t}</span>`
-  ).join('');
-  return `
-  <div class="empty-state">
-    <div class="empty-icon">🔍</div>
-    <h3>What are you looking for?</h3>
-    <p>Type a keyword above to search all ${allPosts.length} articles.</p>
-    ${tagPills ? `<div class="popular-tags">${tagPills}</div>` : ''}
-  </div>`;
-}
-
-function buildNoResults(q) {
-  const tagPills = allTags.slice(0,6).map(t =>
-    `<span class="pop-tag" onclick="tagSearch('${t}')">#${t}</span>`
-  ).join('');
-  return `
-  <div class="empty-state">
-    <div class="empty-icon">😕</div>
-    <h3>No results for "${q}"</h3>
-    <p>Try a different keyword or explore popular topics:</p>
-    <div class="popular-tags">${tagPills}</div>
-  </div>`;
-}
-
-// ── Filter ───────────────────────────────────────────────────────────────────
-function applyFilter() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  filtered = allPosts.filter(p => {
-    const matchFilter = activeFilter === 'all' ||
-      (p.Tags||'').split(',').map(t=>t.trim().toLowerCase()).includes(activeFilter.toLowerCase()) ||
-      (p.Category||'').toLowerCase() === activeFilter.toLowerCase();
-
-    const matchQ = !q ||
-      (p.Title||'').toLowerCase().includes(q) ||
-      (p.Description||'').toLowerCase().includes(q) ||
-      (p.Tags||'').toLowerCase().includes(q) ||
-      (p.Category||'').toLowerCase().includes(q);
-
-    return matchFilter && matchQ;
-  });
-  renderResults();
-}
-
-function setFilter(val, btn) {
-  activeFilter = val;
-  document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  applyFilter();
-}
-
-function onSearch() {
-  const val = document.getElementById('searchInput').value;
-  document.getElementById('clearBtn').classList.toggle('visible', val.length > 0);
-  // Update URL param without reload
-  const url = new URL(window.location);
-  if (val) url.searchParams.set('q', val); else url.searchParams.delete('q');
-  window.history.replaceState(null, '', url);
-  applyFilter();
-}
-
-function clearSearch() {
-  document.getElementById('searchInput').value = '';
-  document.getElementById('clearBtn').classList.remove('visible');
-  window.history.replaceState(null, '', window.location.pathname);
-  applyFilter();
-}
-
-function tagSearch(tag) {
-  document.getElementById('searchInput').value = tag;
-  document.getElementById('clearBtn').classList.add('visible');
-  applyFilter();
-}
-
-// ── Init ─────────────────────────────────────────────────────────────────────
-Papa.parse(CSV_URL, {
-  download: true, header: true,
-  complete(results) {
-    // Use search_item records for maximum coverage
-    allPosts = results.data
-      .filter(r => r.Record_Type === 'search_item' || r.Record_Type === 'post_detail')
-      .reduce((acc, r) => {
-        // Dedupe by Slug
-        if (!acc.find(p => p.Slug === r.Slug)) acc.push(r);
-        return acc;
-      }, []);
-
-    // Collect all tags
-    const tagSet = new Set();
-    allPosts.forEach(p => {
-      (p.Tags||'').split(',').forEach(t => { if (t.trim()) tagSet.add(t.trim()); });
-    });
-    allTags = Array.from(tagSet);
-
-    // Build filter chips
-    const strip = document.getElementById('filtersStrip');
-    const catSet = new Set(allPosts.map(p => p.Category).filter(Boolean));
-    catSet.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = 'filter-chip';
-      btn.textContent = cat;
-      btn.dataset.filter = cat;
-      btn.onclick = () => setFilter(cat, btn);
-      strip.appendChild(btn);
-    });
-    allTags.slice(0,8).forEach(tag => {
-      const btn = document.createElement('button');
-      btn.className = 'filter-chip';
-      btn.textContent = '#' + tag;
-      btn.dataset.filter = tag;
-      btn.onclick = () => setFilter(tag, btn);
-      strip.appendChild(btn);
+        document.getElementById('resultsCount').textContent = posts.length + ' results for "' + query + '"';
+        
+        const list = document.getElementById('resultsList');
+        list.innerHTML = posts.map(p => `
+          <div class="result-item">
+            <a href="post.html?slug=${p.Slug}"><h2>${p.Title}</h2></a>
+            <p>${(p.Description || '').substring(0, 200)}...</p>
+            <a href="post.html?slug=${p.Slug}" class="result-link">Read More →</a>
+          </div>
+        `).join('');
+      }
     });
 
-    // Read ?q= from URL on load
-    const initialQ = getQueryParam('q');
-    if (initialQ) {
-      document.getElementById('searchInput').value = initialQ;
-      document.getElementById('clearBtn').classList.add('visible');
-    }
-
-    filtered = [...allPosts];
-    applyFilter();
-  },
-  error() {
-    document.getElementById('resultsList').innerHTML =
-      `<div class="empty-state"><p>Error loading content. Please try again.</p></div>`;
-  }
-});
-</script>
+    document.getElementById('searchInput').onkeypress = function(e) {
+      if (e.key === 'Enter') {
+        window.location.href = 'search.html?q=' + encodeURIComponent(this.value);
+      }
+    };
+  </script>
 </body>
 </html>

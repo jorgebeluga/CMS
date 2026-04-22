@@ -3,388 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Primary SEO -->
-  <title>Blog — Beluga Linguistics | Localization & Translation Insights</title>
-  <meta name="description" content="Expert insights on localization, translation technology, LSP management, and global content strategy from the Beluga Linguistics team.">
-  <meta name="robots" content="index,follow">
-  <meta name="keywords" content="localization, translation, LSP, TMS, language services, globalization, L10n, i18n, content strategy">
-  <meta name="author" content="Beluga Linguistics">
-  <meta name="publisher" content="Beluga Linguistics">
-  <meta name="copyright" content="© 2025 Beluga Linguistics">
-  <meta name="language" content="en">
-  <meta name="category" content="Blog">
-  <link rel="canonical" href="https://belugalinguistics.com/blog">
-
-  <!-- Open Graph / Facebook / LinkedIn -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Beluga Linguistics">
-  <meta property="og:title" content="Blog — Beluga Linguistics | Localization & Translation Insights">
-  <meta property="og:description" content="Expert insights on localization, translation technology, LSP management, and global content strategy.">
-  <meta property="og:url" content="https://belugalinguistics.com/blog">
-  <meta property="og:image" content="https://belugalinguistics.com/assets/blog-og-default.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Beluga Linguistics Blog">
-  <meta property="og:locale" content="en_US">
-
-  <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@belugalinguistics">
-  <meta name="twitter:creator" content="@belugalinguistics">
-  <meta name="twitter:title" content="Blog — Beluga Linguistics">
-  <meta name="twitter:description" content="Expert insights on localization, translation technology, and global content strategy.">
-  <meta name="twitter:image" content="https://belugalinguistics.com/assets/blog-og-default.jpg">
-  <meta name="twitter:image:alt" content="Beluga Linguistics Blog">
-
-  <!-- Schema.org -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://belugalinguistics.com/#website",
-        "url": "https://belugalinguistics.com",
-        "name": "Beluga Linguistics",
-        "description": "Localization, translation technology and global content strategy.",
-        "publisher": { "@id": "https://belugalinguistics.com/#organization" },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": { "@type": "EntryPoint", "urlTemplate": "https://belugalinguistics.com/blog/search.html?q={search_term_string}" },
-          "query-input": "required name=search_term_string"
-        }
-      },
-      {
-        "@type": "Organization",
-        "@id": "https://belugalinguistics.com/#organization",
-        "name": "Beluga Linguistics",
-        "url": "https://belugalinguistics.com",
-        "logo": {
-          "@type": "ImageObject",
-          "@id": "https://belugalinguistics.com/#logo",
-          "url": "https://belugalinguistics.com/assets/beluga-logo.svg",
-          "width": 200, "height": 60
-        },
-        "sameAs": [
-          "https://www.linkedin.com/company/beluga-linguistics",
-          "https://twitter.com/belugalinguistics"
-        ]
-      },
-      {
-        "@type": "CollectionPage",
-        "@id": "https://belugalinguistics.com/blog/#webpage",
-        "url": "https://belugalinguistics.com/blog",
-        "name": "Blog — Beluga Linguistics",
-        "description": "Expert insights on localization, translation technology, and global content strategy.",
-        "isPartOf": { "@id": "https://belugalinguistics.com/#website" },
-        "publisher": { "@id": "https://belugalinguistics.com/#organization" },
-        "breadcrumb": {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://belugalinguistics.com" },
-            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://belugalinguistics.com/blog/index.html" }
-          ]
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Fonts & Libraries -->
+  <title>Blog — Beluga Linguistics</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
   <style>
     :root {
-      --primary:#1C0445; --secondary:#fff; --accent:#FFD100;
-      --muted:#F2F0EF; --surface:#FCFCFC; --info:#0C6FF9;
-      --font-h:'Libre Baskerville',serif; --font-b:'Inter',sans-serif;
-      --r-btn:37px; --tr:all 0.15s linear;
+      --primary: #1C0445; --secondary: #fff; --accent: #FFD100;
+      --muted: #F2F0EF; --surface: #FCFCFC; --info: #0C6FF9;
+      --font-h: 'Libre Baskerville', serif; --font-b: 'Inter', sans-serif;
+      --r-btn: 37px; --tr: all 0.15s linear;
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:var(--font-b);background:var(--surface);color:var(--primary);line-height:1.7}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;height:auto;display:block}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-b); background: var(--surface); color: var(--primary); line-height: 1.7; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
 
-    /* Nav */
-    .nav{background:var(--primary);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:68px;position:sticky;top:0;z-index:100}
-    .nav-logo{display:flex;align-items:center;gap:10px}
-    .nav-logo svg{width:32px;height:33px}
-    .nav-logo span{font-family:var(--font-h);font-weight:700;font-size:1.2rem;color:#fff}
-    .nav-links{display:flex;gap:2rem;align-items:center}
-    .nav-link{color:rgba(255,255,255,.75);font-size:.9rem;font-weight:500;transition:var(--tr)}
-    .nav-link:hover,.nav-link.active{color:var(--accent)}
-    .nav-cta{background:var(--accent);color:var(--primary);font-weight:600;font-size:.875rem;padding:10px 24px;border-radius:var(--r-btn);transition:var(--tr)}
-    .nav-cta:hover{background:#e8be00}
-
-    /* Hero */
-    .blog-hero{background:var(--primary);padding:5rem 2rem 6rem;text-align:center}
-    .blog-hero-label{font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
-    .blog-hero h1{font-family:var(--font-h);font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;color:#fff;margin-bottom:1.25rem;line-height:1.15}
-    .blog-hero p{color:rgba(255,255,255,.65);font-size:1.1rem;max-width:560px;margin:0 auto 2.5rem}
+    .nav { background: var(--primary); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-family: var(--font-h); font-weight: 700; }
+    .nav-logo svg { width: 32px; height: 33px; }
     
-    /* Search */
-    .search-wrap{max-width:560px;margin:0 auto;position:relative}
-    .search-input{width:100%;padding:16px 24px 16px 52px;border:none;border-radius:var(--r-btn);font-family:var(--font-b);font-size:1rem;background:#fff;color:var(--primary);outline:none;box-shadow:0 8px 32px rgba(0,0,0,.2)}
-    .search-input::placeholder{color:rgba(28,4,69,.4)}
-    .search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:rgba(28,4,69,.35);pointer-events:none}
-    .search-count{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:.8rem;color:rgba(28,4,69,.4);font-weight:500}
+    .blog-hero { background: var(--primary); padding: 5rem 2rem; text-align: center; color: #fff; }
+    .blog-hero h1 { font-family: var(--font-h); font-size: 3rem; margin-bottom: 1rem; }
+    .blog-hero p { color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; }
 
-    /* Main layout */
-    .blog-main{max-width:1200px;margin:0 auto;padding:3rem 2rem 5rem}
-    
-    /* Filters */
-    .filter-row{display:flex;align-items:center;gap:10px;margin-bottom:2.5rem;flex-wrap:wrap}
-    .filter-label{font-size:.8rem;font-weight:600;color:rgba(28,4,69,.45);text-transform:uppercase;letter-spacing:.06em;margin-right:4px}
-    .filter-btn{background:var(--muted);color:var(--primary);border:none;font-family:var(--font-b);font-size:.8rem;font-weight:500;padding:7px 18px;border-radius:20px;cursor:pointer;transition:var(--tr)}
-    .filter-btn:hover,.filter-btn.active{background:var(--primary);color:#fff}
-    .filter-btn.accent.active{background:var(--accent);color:var(--primary)}
+    .blog-main { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+    .filter-row { display: flex; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; align-items: center; }
+    .filter-btn { background: var(--muted); border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: var(--tr); }
+    .filter-btn.active { background: var(--primary); color: #fff; }
 
-    /* Grid */
-    .posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-    
-    /* Card */
-    .post-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(28,4,69,.07);transition:var(--tr);display:flex;flex-direction:column}
-    .post-card:hover{box-shadow:0 12px 40px rgba(28,4,69,.14);transform:translateY(-3px)}
-    .card-image{aspect-ratio:16/9;overflow:hidden;background:var(--muted)}
-    .card-image img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-    .post-card:hover .card-image img{transform:scale(1.04)}
-    .card-image-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),#3a1470)}
-    .card-image-placeholder svg{opacity:.25}
-    .card-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
-    .card-meta{display:flex;align-items:center;gap:10px;margin-bottom:.875rem;flex-wrap:wrap}
-    .card-cat{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--info);background:rgba(12,111,249,.08);padding:3px 10px;border-radius:12px}
-    .card-date{font-size:.75rem;color:rgba(28,4,69,.45)}
-    .card-title{font-family:var(--font-h);font-weight:700;font-size:1.125rem;line-height:1.35;color:var(--primary);margin-bottom:.75rem;transition:var(--tr)}
-    .post-card:hover .card-title{color:#3a1470}
-    .card-desc{font-size:.875rem;color:rgba(28,4,69,.65);line-height:1.65;flex:1;margin-bottom:1.25rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-    .card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
-    .card-tag{font-size:.7rem;background:var(--muted);color:var(--primary);padding:3px 10px;border-radius:12px;font-weight:500;transition:var(--tr);cursor:pointer}
-    .card-tag:hover{background:var(--accent)}
-    .card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--muted)}
-    .card-author{display:flex;align-items:center;gap:8px}
-    .card-avatar{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center}
-    .card-author-name{font-size:.775rem;color:rgba(28,4,69,.6)}
-    .card-read{font-size:.775rem;font-weight:600;color:var(--primary);display:flex;align-items:center;gap:4px;transition:var(--tr)}
-    .card-read:hover{color:var(--info)}
+    .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem; }
+    .post-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: var(--tr); }
+    .post-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .card-image { aspect-ratio: 16/9; background: var(--muted); overflow: hidden; }
+    .card-image img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .card-cat { color: var(--info); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .card-title { font-family: var(--font-h); font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--primary); line-height: 1.3; }
+    .card-desc { font-size: 0.9rem; color: #666; margin-bottom: 1.5rem; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-footer { border-top: 1px solid var(--muted); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+    .card-author { font-weight: 600; }
+    .card-read { color: var(--primary); font-weight: 700; }
 
-    /* Empty state */
-    .empty-state{text-align:center;padding:5rem 2rem;grid-column:1/-1}
-    .empty-icon{font-size:3rem;margin-bottom:1rem}
-    .empty-state h3{font-family:var(--font-h);font-size:1.5rem;margin-bottom:.5rem}
-    .empty-state p{color:rgba(28,4,69,.5);font-size:.95rem}
-
-    /* Spinner */
-    .spinner-wrap{display:flex;align-items:center;justify-content:center;padding:5rem;grid-column:1/-1}
-    .spinner{width:36px;height:36px;border:3px solid var(--muted);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* Footer */
-    .site-footer{background:var(--primary);color:rgba(255,255,255,.6);text-align:center;padding:2rem;font-size:.875rem}
-    .site-footer a{color:var(--accent)}
-
-    @media(max-width:991px){.posts-grid{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}}
-    @media(max-width:640px){.posts-grid{grid-template-columns:1fr}.blog-hero{padding:3.5rem 1rem 5rem}.blog-main{padding:2rem 1rem 4rem}}
+    .site-footer { background: var(--primary); color: rgba(255,255,255,0.5); text-align: center; padding: 3rem; margin-top: 4rem; }
   </style>
 </head>
 <body>
+  <nav class="nav">
+    <a href="./index.html" class="nav-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635"><path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/><path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/></svg>
+      <span>Beluga</span>
+    </a>
+  </nav>
 
-<nav class="nav">
-  <a href="/blog" class="nav-logo">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635">
-      <path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/>
-      <path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/>
-    </svg>
-    <span>Beluga</span>
-  </a>
-  <div class="nav-links">
-    <a href="./index.html" class="nav-link active">Blog</a>
-    <a href="#" class="nav-link">Services</a>
-    <a href="#" class="nav-cta">Get in touch</a>
-  </div>
-</nav>
+  <header class="blog-hero">
+    <h1>Blog Insights</h1>
+    <p>Localization, tech and strategy for global professionals.</p>
+  </header>
 
-<section class="blog-hero">
-  <div class="blog-hero-label">Beluga Blog</div>
-  <h1>Insights on Language,<br>Tech & Localization</h1>
-  <p>Expert perspectives on translation technology, global content strategy, and the future of language services.</p>
-  <div class="search-wrap">
-    <span class="search-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    </span>
-    <input class="search-input" id="searchInput" type="text" placeholder="Search articles…" oninput="filterPosts()">
-    <span class="search-count" id="searchCount"></span>
-  </div>
-</section>
+  <main class="blog-main">
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn active" onclick="setFilter('all', this)">All Posts</button>
+    </div>
+    <div class="posts-grid" id="postsGrid">
+      <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: #ccc;">Loading insights...</div>
+    </div>
+  </main>
 
-<main class="blog-main">
-  <div class="filter-row" id="filterRow">
-    <span class="filter-label">Filter:</span>
-    <button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All posts</button>
-  </div>
-  <div class="posts-grid" id="postsGrid">
-    <div class="spinner-wrap"><div class="spinner"></div></div>
-  </div>
-</main>
+  <footer class="site-footer">
+    <p>© 2025 Beluga Linguistics</p>
+  </footer>
 
-<footer class="site-footer">
-  <p>© 2025 <a href="/">Beluga Linguistics</a>. All rights reserved.</p>
-</footer>
+  <script>
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
+    let allPosts = [];
+    let activeFilter = 'all';
 
-<script>
-const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
+    function formatDate(s) {
+      if (!s) return '';
+      const d = new Date(s);
+      return isNaN(d.getTime()) ? s : d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+    }
 
-let allPosts = [];
-let activeFilter = 'all';
-let allTags = [];
-
-function formatDate(s) {
-  if (!s) return '';
-  const d = new Date(s);
-  if (isNaN(d)) return s;
-  return d.toLocaleDateString('en-US', {year:'numeric',month:'short',day:'numeric'});
-}
-
-function initials(name) {
-  return (name||'B').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-}
-
-function cleanDesc(text) {
-  return (text||'').replace(/!\[.*?\]\(.*?\)/g,'').replace(/[#*_`]/g,'').trim();
-}
-
-function buildCards(posts) {
-  if (!posts.length) return `
-    <div class="empty-state">
-      <div class="empty-icon">🔍</div>
-      <h3>No posts found</h3>
-      <p>Try a different search or filter.</p>
-    </div>`;
-
-  return posts.map(p => {
-    const tags = (p.Tags||'').split(',').map(t=>t.trim()).filter(Boolean);
-    const tagsHtml = tags.map(t=>`<span class="card-tag" onclick="window.location.href='tag.html?tag='+encodeURIComponent('${t}')">${t}</span>`).join('');
-    const imgHtml = p.Image
-      ? `<img src="${p.Image}" alt="${p.Image_Alt||p.Title}" loading="lazy">`
-      : `<div class="card-image-placeholder"><svg width="48" height="50" viewBox="0 0 616 635" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M596 624.5L528 624.5L519 620.5L510.5 611L306 172.5L303.5 175L102.5 609L93 620.5L84 624.5L19 624.5L14 622.5L10.5 618L10.5 608L17.5 590L271.5 55L288.5 22L300 10.5L311 9.5L315 11.5L324.5 22L333.5 38L348.5 72L601.5 598L605.5 610L605.5 617L601 622.5L596 624.5Z"/></svg></div>`;
-
-    return `
-    <article class="post-card">
-      <a href="post.html?slug=${p.Slug}" class="card-image">${imgHtml}</a>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-cat">${p.Category||'General'}</span>
-          <span class="card-date">${formatDate(p.Date)}</span>
-        </div>
-        <a href="post.html?slug=${p.Slug}"><h2 class="card-title">${p.Title}</h2></a>
-        <p class="card-desc">${cleanDesc(p.Description)}</p>
-        ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
-        <div class="card-footer">
-          <div class="card-author">
-            <div class="card-avatar">${initials(p.Author)}</div>
-            <span class="card-author-name">${p.Author||'Beluga'}</span>
+    function renderGrid(posts) {
+      const grid = document.getElementById('postsGrid');
+      if (!posts.length) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 4rem;">No posts found.</div>';
+        return;
+      }
+      grid.innerHTML = posts.map(p => `
+        <article class="post-card">
+          <a href="post.html?slug=${p.Slug}" class="card-image">
+            <img src="${p.Image || 'https://placehold.co/600x400/1C0445/FFFFFF?text=Beluga'}" alt="">
+          </a>
+          <div class="card-body">
+            <div class="card-cat">${p.Category || 'General'}</div>
+            <a href="post.html?slug=${p.Slug}"><h2 class="card-title">${p.Title || 'Untitled'}</h2></a>
+            <p class="card-desc">${(p.Description || '').substring(0, 150)}...</p>
+            <div class="card-footer">
+              <span class="card-author">By ${p.Author || 'Beluga'}</span>
+              <span class="card-date">${formatDate(p.Date)}</span>
+              <a href="post.html?slug=${p.Slug}" class="card-read">Read →</a>
+            </div>
           </div>
-          <a href="post.html?slug=${p.Slug}" class="card-read">Read →</a>
-        </div>
-      </div>
-    </article>`;
-  }).join('');
-}
+        </article>
+      `).join('');
+    }
 
-function filterPosts() {
-  const q = (document.getElementById('searchInput').value||'').toLowerCase();
-  let filtered = allPosts;
+    function setFilter(val, btn) {
+      activeFilter = val;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      
+      const filtered = (val === 'all') ? allPosts : allPosts.filter(p => p.Category === val);
+      renderGrid(filtered);
+    }
 
-  if (activeFilter !== 'all') {
-    filtered = filtered.filter(p => {
-      const tags = (p.Tags||'').split(',').map(t=>t.trim().toLowerCase());
-      const cat = (p.Category||'').toLowerCase();
-      return tags.includes(activeFilter.toLowerCase()) || cat === activeFilter.toLowerCase();
+    Papa.parse(CSV_URL, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        allPosts = results.data.filter(r => r.Record_Type === 'post_detail' && r.Slug);
+        
+        // Build filters
+        const cats = [...new Set(allPosts.map(p => p.Category).filter(Boolean))];
+        const row = document.getElementById('filterRow');
+        cats.forEach(cat => {
+          const b = document.createElement('button');
+          b.className = 'filter-btn';
+          b.textContent = cat;
+          b.onclick = () => setFilter(cat, b);
+          row.appendChild(b);
+        });
+
+        renderGrid(allPosts);
+      }
     });
-  }
-  if (q) {
-    filtered = filtered.filter(p =>
-      (p.Title||'').toLowerCase().includes(q) ||
-      (p.Description||'').toLowerCase().includes(q) ||
-      (p.Tags||'').toLowerCase().includes(q)
-    );
-  }
-
-  const count = filtered.length;
-  document.getElementById('searchCount').textContent = q ? `${count} result${count!==1?'s':''}` : '';
-  document.getElementById('postsGrid').innerHTML = buildCards(filtered);
-}
-
-function setFilter(val, btn) {
-  activeFilter = val;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  if (btn) {
-    btn.classList.add('active');
-  } else {
-    // tag clicked inline
-    filterPosts();
-    return;
-  }
-  filterPosts();
-}
-
-function buildFilters(posts) {
-  const tagSet = new Set();
-  const catSet = new Set();
-  posts.forEach(p => {
-    (p.Category||'').split(',').forEach(c => c.trim() && catSet.add(c.trim()));
-    (p.Tags||'').split(',').forEach(t => t.trim() && tagSet.add(t.trim()));
-  });
-
-  const row = document.getElementById('filterRow');
-  catSet.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.textContent = cat;
-    btn.dataset.filter = cat;
-    btn.onclick = () => setFilter(cat, btn);
-    row.appendChild(btn);
-  });
-  tagSet.forEach(tag => {
-    allTags.push(tag);
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.textContent = '#' + tag;
-    btn.dataset.filter = tag;
-    btn.onclick = () => setFilter(tag, btn);
-    row.appendChild(btn);
-  });
-}
-
-Papa.parse(CSV_URL, {
-  download: true, header: true,
-  complete(results) {
-    // Use post_index JSON if available, else collect post_detail rows
-    const indexRow = results.data.find(r => r.Record_Type === 'post_index');
-    if (indexRow && indexRow.Markdown_Body) {
-      try {
-        allPosts = JSON.parse(indexRow.Markdown_Body);
-      } catch(e) { allPosts = []; }
-    }
-    if (!allPosts.length) {
-      allPosts = results.data
-        .filter(r => r.Record_Type === 'post_detail')
-        .map(r => ({
-          Title: r.Title, Url: r.Url, Image: r.Image, Image_Alt: r.Image_Alt,
-          Description: r.Description, Date: r.Date, Author: r.Author,
-          Category: r.Category, Tags: r.Tags, Slug: r.Slug
-        }));
-    }
-    buildFilters(allPosts);
-    filterPosts();
-  },
-  error() {
-    document.getElementById('postsGrid').innerHTML = `<div class="empty-state"><p>Error loading posts.</p></div>`;
-  }
-});
-</script>
+  </script>
 </body>
 </html>

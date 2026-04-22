@@ -3,680 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="page-title">Loading…</title>
-  <meta name="description" id="meta-description" content="">
-  <meta name="robots" id="meta-robots" content="index,follow">
-  <link rel="canonical" id="canonical-url" href="">
-
-  <!-- Fonts -->
+  <title id="page-title">Loading...</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Marked.js for markdown rendering -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <!-- PapaParse for CSV parsing -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
-    /* ─── Design Tokens ──────────────────────────────────────────── */
     :root {
-      --beluga-color-primary:   #1C0445;
-      --beluga-color-secondary: #FFFFFF;
-      --beluga-color-accent:    #FFD100;
-      --beluga-color-muted:     #F2F0EF;
-      --beluga-color-surface:   #FCFCFC;
-      --beluga-color-info:      #0C6FF9;
-      --beluga-font-heading:    'Libre Baskerville', serif;
-      --beluga-font-body:       'Inter', sans-serif;
-      --beluga-radius-button:   37px;
-      --beluga-radius-input:    12px;
-      --beluga-transition-fast: all 0.15s linear;
+      --primary: #1C0445; --secondary: #fff; --accent: #FFD100;
+      --muted: #F2F0EF; --surface: #FCFCFC; --info: #0C6FF9;
+      --font-h: 'Libre Baskerville', serif; --font-b: 'Inter', sans-serif;
     }
-
-    /* ─── Reset & Base ───────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--beluga-font-body);
-      background: var(--beluga-color-surface);
-      color: var(--beluga-color-primary);
-      font-size: 1rem;
-      line-height: 1.7;
-      font-weight: 400;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; height: auto; display: block; }
-
-    /* ─── Nav ────────────────────────────────────────────────────── */
-    .nav {
-      background: var(--beluga-color-primary);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-b); background: var(--surface); color: var(--primary); line-height: 1.8; }
+    .nav { background: var(--primary); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-family: var(--font-h); font-weight: 700; text-decoration: none; }
     .nav-logo svg { width: 32px; height: 33px; }
-    .nav-logo span {
-      font-family: var(--beluga-font-heading);
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #fff;
-    }
-    .nav-link {
-      color: rgba(255,255,255,0.75);
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: var(--beluga-transition-fast);
-      padding: 6px 0;
-    }
-    .nav-link:hover { color: var(--beluga-color-accent); }
-    .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .nav-cta {
-      background: var(--beluga-color-accent);
-      color: var(--beluga-color-primary);
-      font-weight: 600;
-      font-size: 0.875rem;
-      padding: 10px 24px;
-      border-radius: var(--beluga-radius-button);
-      transition: var(--beluga-transition-fast);
-    }
-    .nav-cta:hover { background: #e8be00; }
 
-    /* ─── Hero ───────────────────────────────────────────────────── */
-    .post-hero {
-      background: var(--beluga-color-primary);
-      color: #fff;
-      padding: 5rem 2rem 4rem;
-    }
-    .post-hero-inner { max-width: 860px; margin: 0 auto; }
-    .post-breadcrumb {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 1.5rem;
-    }
-    .post-breadcrumb a { color: rgba(255,255,255,0.6); transition: var(--beluga-transition-fast); }
-    .post-breadcrumb a:hover { color: var(--beluga-color-accent); }
-    .post-breadcrumb span { color: rgba(255,255,255,0.3); }
-    .post-meta-top {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .post-tag {
-      background: rgba(255,209,0,0.15);
-      color: var(--beluga-color-accent);
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,209,0,0.3);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .post-date {
-      font-size: 0.825rem;
-      color: rgba(255,255,255,0.5);
-    }
-    .post-title {
-      font-family: var(--beluga-font-heading);
-      font-weight: 800;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      line-height: 1.2;
-      color: #fff;
-      margin-bottom: 1.5rem;
-    }
-    .post-author {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .post-author-avatar {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: var(--beluga-color-accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.75rem;
-      color: var(--beluga-color-primary);
-      flex-shrink: 0;
-    }
-    .post-author-name {
-      font-size: 0.875rem;
-      color: rgba(255,255,255,0.7);
-    }
+    .post-header { background: var(--primary); color: #fff; padding: 6rem 2rem 4rem; text-align: center; }
+    .post-header-inner { max-width: 800px; margin: 0 auto; }
+    .post-cat { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 1rem; display: block; }
+    .post-header h1 { font-family: var(--font-h); font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+    .post-meta { display: flex; justify-content: center; gap: 20px; font-size: 0.9rem; color: rgba(255,255,255,0.6); }
 
-    /* ─── Featured Image ─────────────────────────────────────────── */
-    .featured-image-wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      transform: translateY(-2rem);
-    }
-    .featured-image-wrap img {
-      width: 100%;
-      max-height: 500px;
-      object-fit: cover;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(28,4,69,0.25);
-    }
+    .post-content { max-width: 800px; margin: 0 auto; padding: 4rem 2rem; }
+    .post-body { font-size: 1.1rem; }
+    .post-body h2 { font-family: var(--font-h); margin: 2.5rem 0 1rem; font-size: 1.75rem; }
+    .post-body p { margin-bottom: 1.5rem; }
+    .post-body img { max-width: 100%; border-radius: 12px; margin: 2rem 0; }
+    
+    .tag-pill { background: var(--muted); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-decoration: none; margin-right: 5px; color: var(--primary); }
+    .tag-pill:hover { background: var(--accent); }
 
-    /* ─── Layout ─────────────────────────────────────────────────── */
-    .post-layout {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem 5rem;
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    /* ─── Article ────────────────────────────────────────────────── */
-    .post-article {}
-    .post-article h1, .post-article h2, .post-article h3,
-    .post-article h4, .post-article h5, .post-article h6 {
-      font-family: var(--beluga-font-heading);
-      font-weight: 800;
-      color: var(--beluga-color-primary);
-      margin-top: 2rem;
-      margin-bottom: 0.75rem;
-    }
-    .post-article h2 { font-size: 1.75rem; line-height: 1.3; }
-    .post-article h3 { font-size: 1.4rem; line-height: 1.35; }
-    .post-article p { margin-bottom: 1.25rem; }
-    .post-article ul, .post-article ol {
-      margin-bottom: 1.25rem;
-      padding-left: 1.5rem;
-    }
-    .post-article li { margin-bottom: 0.5rem; }
-    .post-article strong { font-weight: 700; color: var(--beluga-color-primary); }
-    .post-article em { font-style: italic; }
-    .post-article img {
-      border-radius: 12px;
-      margin: 1.5rem 0;
-      box-shadow: 0 8px 30px rgba(28,4,69,0.1);
-    }
-    .post-article blockquote {
-      border-left: 3px solid var(--beluga-color-info);
-      padding-left: 1.5rem;
-      margin: 1.5rem 0;
-      color: #555;
-      font-style: italic;
-    }
-    .post-article a {
-      color: var(--beluga-color-info);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    /* Tags footer */
-    .post-tags-footer {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--beluga-color-muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .post-tags-footer-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: rgba(28,4,69,0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-right: 4px;
-    }
-    .tag-pill {
-      background: var(--beluga-color-muted);
-      color: var(--beluga-color-primary);
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 5px 14px;
-      border-radius: 20px;
-      transition: var(--beluga-transition-fast);
-      cursor: pointer;
-    }
-    .tag-pill:hover {
-      background: var(--beluga-color-accent);
-    }
-
-    /* ─── Sidebar ────────────────────────────────────────────────── */
-    .post-sidebar {
-      position: sticky;
-      top: 90px;
-    }
-    .sidebar-toc {
-      background: var(--beluga-color-muted);
-      border-radius: 16px;
-      padding: 1.5rem;
-    }
-    .sidebar-toc-title {
-      font-family: var(--beluga-font-heading);
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: var(--beluga-color-primary);
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .toc-list { list-style: none; padding: 0; }
-    .toc-item { margin-bottom: 0.5rem; }
-    .toc-item a {
-      font-size: 0.875rem;
-      color: rgba(28,4,69,0.7);
-      line-height: 1.4;
-      display: block;
-      padding: 4px 8px;
-      border-radius: 6px;
-      transition: var(--beluga-transition-fast);
-    }
-    .toc-item a:hover {
-      background: rgba(28,4,69,0.06);
-      color: var(--beluga-color-primary);
-    }
-    .toc-item.level-2 { padding-left: 1rem; }
-    .toc-item.level-3 { padding-left: 1.75rem; }
-
-    /* ─── Loading & Error ────────────────────────────────────────── */
-    .loading-screen {
-      min-height: calc(100vh - 68px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 16px;
-      color: rgba(28,4,69,0.5);
-    }
-    .spinner {
-      width: 36px; height: 36px;
-      border: 3px solid var(--beluga-color-muted);
-      border-top-color: var(--beluga-color-accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ─── Footer ─────────────────────────────────────────────────── */
-    .site-footer {
-      background: var(--beluga-color-primary);
-      color: rgba(255,255,255,0.6);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.875rem;
-    }
-    .site-footer a { color: var(--beluga-color-accent); }
-
-    /* ─── Responsive ─────────────────────────────────────────────── */
-    @media (max-width: 991px) {
-      .post-layout {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      .post-sidebar { position: static; }
-      .nav-links { display: none; }
-    }
-    @media (max-width: 640px) {
-      .post-hero { padding: 3.5rem 1rem 3rem; }
-      .post-layout { padding: 0 1rem 4rem; }
-      .featured-image-wrap { padding: 0 1rem; }
-    }
+    .back-blog { display: inline-block; margin-top: 3rem; font-weight: 700; color: var(--primary); text-decoration: none; }
   </style>
 </head>
 <body>
-
-  <!-- NAV -->
   <nav class="nav">
-    <a href="/blog" class="nav-logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635">
-        <path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/>
-        <path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/>
-      </svg>
+    <a href="index.html" class="nav-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635"><path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/><path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/></svg>
       <span>Beluga</span>
     </a>
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Blog</a>
-      <a href="../" class="nav-link">Services</a>
-      <a href="#" class="nav-cta">Get in touch</a>
-    </div>
   </nav>
 
-  <!-- MAIN CONTENT (rendered by JS) -->
-  <div id="app">
-    <div class="loading-screen">
-      <div class="spinner"></div>
-      <span>Loading post…</span>
+  <article id="post-article">
+    <div class="post-header">
+      <div class="post-header-inner">
+        <span class="post-cat" id="post-category">Category</span>
+        <h1 id="post-title">Loading...</h1>
+        <div class="post-meta">
+          <span id="post-author">By Beluga</span>
+          <span id="post-date"></span>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <p>© 2025 <a href="/">Beluga Linguistics</a>. All rights reserved.</p>
-  </footer>
+    <div class="post-content">
+      <div class="post-body" id="post-body"></div>
+      <div id="post-tags" style="margin-top: 3rem;"></div>
+      <a href="index.html" class="back-blog">← Back to Blog</a>
+    </div>
+  </article>
 
   <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
+    const slug = new URLSearchParams(window.location.search).get('slug');
 
-    // Get slug from URL: /blog/my-post-slug
-    function getSlugFromUrl() {
-      const parts = window.location.pathname.replace(/\/$/, '').split('/');
-      return parts[parts.length - 1];
+    function formatDate(s) {
+      if (!s) return '';
+      const d = new Date(s);
+      return isNaN(d.getTime()) ? s : d.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
     }
-
-    function formatDate(dateStr) {
-      if (!dateStr) return '';
-      const d = new Date(dateStr);
-      if (isNaN(d.getTime())) return dateStr;
-      return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    }
-
-    function buildTocHtml(tocString) {
-      if (!tocString) return '';
-      try {
-        const headings = JSON.parse(tocString);
-        if (!headings.length) return '';
-        const items = headings.map(h => `
-          <li class="toc-item level-${h.level}">
-            <a href="#${h.anchor}">${h.text}</a>
-          </li>`).join('');
-        return `<div class="sidebar-toc">
-          <div class="sidebar-toc-title">In this article</div>
-          <ul class="toc-list">${items}</ul>
-        </div>`;
-      } catch (e) {
-        return '';
-      }
-    }
-
-    function injectSeo(post) {
-      const SITE_NAME    = 'Beluga Linguistics';
-      const SITE_URL     = 'https://belugalinguistics.com';
-      const LOGO_URL     = SITE_URL + '/assets/beluga-logo.svg';
-      const TWITTER_HANDLE = '@belugalinguistics';
-      const FB_APP_ID    = ''; // add your FB App ID here if you have one
-
-      const title       = post.Meta_Title || post.Title || '';
-      const description = (post.Meta_Description || post.Description || '').replace(/!\[.*?\]\(.*?\)/g,'').replace(/[#*_`]/g,'').slice(0,300).trim();
-      const canonical   = post.Canonical_URL || post.Url || window.location.href;
-      const image       = post.Image || '';
-      const imageAlt    = post.Image_Alt || title;
-      const robots      = post.Meta_Robots || 'index,follow';
-      const author      = post.Author || SITE_NAME;
-      const datePubl    = post.Date ? new Date(post.Date).toISOString() : '';
-      const category    = post.Category || 'Blog';
-      const tags        = (post.Tags || '').split(',').map(t => t.trim()).filter(Boolean);
-      const keywords    = tags.join(', ');
-
-      // Helper: upsert a meta tag
-      function setMeta(attr, name, content) {
-        let el = document.querySelector(`meta[${attr}="${name}"]`);
-        if (!el) {
-          el = document.createElement('meta');
-          el.setAttribute(attr, name);
-          document.head.appendChild(el);
-        }
-        el.setAttribute('content', content);
-      }
-      function setMetaName(name, content) { setMeta('name', name, content); }
-      function setMetaProp(prop, content) { setMeta('property', prop, content); }
-
-      // ── Base ────────────────────────────────────────────────────
-      document.title = title;
-      document.documentElement.lang = post.Language || 'en';
-      document.getElementById('meta-description').setAttribute('content', description);
-      document.getElementById('meta-robots').setAttribute('content', robots);
-      document.getElementById('canonical-url').setAttribute('href', canonical);
-
-      // ── Standard Meta ────────────────────────────────────────────
-      setMetaName('keywords',  keywords);
-      setMetaName('author',    author);
-      setMetaName('publisher', SITE_NAME);
-      setMetaName('copyright', '© ' + new Date().getFullYear() + ' ' + SITE_NAME);
-      setMetaName('language',  post.Language || 'en');
-      setMetaName('revisit-after', '7 days');
-      setMetaName('category', category);
-
-      // ── Open Graph ───────────────────────────────────────────────
-      setMetaProp('og:type',              'article');
-      setMetaProp('og:site_name',         SITE_NAME);
-      setMetaProp('og:title',             title);
-      setMetaProp('og:description',       description);
-      setMetaProp('og:url',               canonical);
-      setMetaProp('og:locale',            post.Language === 'es' ? 'es_ES' : 'en_US');
-      if (image) {
-        setMetaProp('og:image',           image);
-        setMetaProp('og:image:alt',       imageAlt);
-        setMetaProp('og:image:width',     '1200');
-        setMetaProp('og:image:height',    '630');
-        setMetaProp('og:image:type',      'image/jpeg');
-      }
-      if (datePubl) {
-        setMetaProp('article:published_time', datePubl);
-        setMetaProp('article:modified_time',  datePubl);
-      }
-      setMetaProp('article:author',       author);
-      setMetaProp('article:section',      category);
-      tags.forEach((t, i) => {
-        let el = document.querySelector(`meta[property="article:tag"][data-idx="${i}"]`);
-        if (!el) { el = document.createElement('meta'); el.setAttribute('property','article:tag'); el.dataset.idx = i; document.head.appendChild(el); }
-        el.setAttribute('content', t);
-      });
-      if (FB_APP_ID) setMetaProp('fb:app_id', FB_APP_ID);
-
-      // ── Twitter / X Cards ────────────────────────────────────────
-      setMetaName('twitter:card',        image ? 'summary_large_image' : 'summary');
-      setMetaName('twitter:site',        TWITTER_HANDLE);
-      setMetaName('twitter:creator',     TWITTER_HANDLE);
-      setMetaName('twitter:title',       title);
-      setMetaName('twitter:description', description);
-      if (image) {
-        setMetaName('twitter:image',     image);
-        setMetaName('twitter:image:alt', imageAlt);
-      }
-
-      // ── LinkedIn (uses OG, but add extra hints) ──────────────────
-      setMetaProp('og:image:secure_url', image); // LinkedIn prefers https
-
-      // ── WhatsApp / Telegram use OG — already set above ──────────
-
-      // ── Schema.org JSON-LD ───────────────────────────────────────
-      const schemaOrg = {
-        '@context': 'https://schema.org',
-        '@graph': [
-          // WebSite
-          {
-            '@type': 'WebSite',
-            '@id': SITE_URL + '/#website',
-            'url': SITE_URL,
-            'name': SITE_NAME,
-            'description': 'Localization, translation technology and global content strategy.',
-            'publisher': { '@id': SITE_URL + '/#organization' },
-            'potentialAction': {
-              '@type': 'SearchAction',
-              'target': { '@type': 'EntryPoint', 'urlTemplate': SITE_URL + '/blog/search?q={search_term_string}' },
-              'query-input': 'required name=search_term_string'
-            }
-          },
-          // Organization
-          {
-            '@type': 'Organization',
-            '@id': SITE_URL + '/#organization',
-            'name': SITE_NAME,
-            'url': SITE_URL,
-            'logo': {
-              '@type': 'ImageObject',
-              '@id': SITE_URL + '/#logo',
-              'url': LOGO_URL,
-              'contentUrl': LOGO_URL,
-              'width': 200,
-              'height': 60
-            },
-            'sameAs': [
-              'https://www.linkedin.com/company/beluga-linguistics',
-              'https://twitter.com/belugalinguistics'
-            ]
-          },
-          // BlogPosting
-          {
-            '@type': 'BlogPosting',
-            '@id': canonical + '#article',
-            'headline': title,
-            'description': description,
-            'url': canonical,
-            'datePublished': datePubl,
-            'dateModified': datePubl,
-            'author': {
-              '@type': 'Person',
-              'name': author
-            },
-            'publisher': { '@id': SITE_URL + '/#organization' },
-            'image': image ? {
-              '@type': 'ImageObject',
-              'url': image,
-              'description': imageAlt
-            } : undefined,
-            'keywords': keywords,
-            'articleSection': category,
-            'inLanguage': post.Language || 'en',
-            'isPartOf': { '@id': SITE_URL + '/blog/#webpage' },
-            'mainEntityOfPage': { '@type': 'WebPage', '@id': canonical }
-          },
-          // BreadcrumbList
-          {
-            '@type': 'BreadcrumbList',
-            '@id': canonical + '#breadcrumb',
-            'itemListElement': [
-              { '@type': 'ListItem', 'position': 1, 'name': 'Home',  'item': SITE_URL },
-              { '@type': 'ListItem', 'position': 2, 'name': 'Blog',  'item': SITE_URL + '/blog' },
-              { '@type': 'ListItem', 'position': 3, 'name': category,'item': SITE_URL + '/blog/category/' + (post.Category_Slug || 'general') },
-              { '@type': 'ListItem', 'position': 4, 'name': title,   'item': canonical }
-            ]
-          }
-        ]
-      };
-
-      // Remove any previous schema
-      document.querySelectorAll('script[type="application/ld+json"]').forEach(s => s.remove());
-      const schemaScript = document.createElement('script');
-      schemaScript.type = 'application/ld+json';
-      schemaScript.textContent = JSON.stringify(schemaOrg, null, 2);
-      document.head.appendChild(schemaScript);
-
-      // ── Custom Head HTML from CMS ────────────────────────────────
-      if (post.Head_HTML) {
-        const tmp = document.createElement('div');
-        tmp.innerHTML = post.Head_HTML;
-        Array.from(tmp.children).forEach(el => document.head.appendChild(el));
-      }
-    }
-
-    function renderPost(post) {
-      injectSeo(post);
-
-      const tags = (post.Tags || '').split(',').map(t => t.trim()).filter(Boolean);
-      const tagsHtml = tags.map(t =>
-        `<a href="tag.html?tag=${encodeURIComponent(t.toLowerCase())}" class="post-tag">${t}</a>`
-      ).join('');
-      const tagsFooter = tags.map(t =>
-        `<a href="tag.html?tag=${encodeURIComponent(t.toLowerCase())}" class="tag-pill">${t}</a>`
-      ).join('');
-
-      const initials = (post.Author || 'B').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-      const md = post.Markdown_Body || '';
-      const bodyHtml = marked.parse(md.replace(/^!\[.*?\]\(.*?\)\s*/m, '').replace(/^!\[.*?\]\(.*?\)\s*/m, ''));
-
-      const featuredImg = post.Image
-        ? `<div class="featured-image-wrap">
-            <img src="${post.Image}" alt="${post.Image_Alt || post.Title}" loading="lazy">
-           </div>`
-        : '';
-
-      const tocHtml = buildTocHtml(post.Headings);
-
-      document.getElementById('page-title').textContent = post.Meta_Title || post.Title;
-
-      document.getElementById('app').innerHTML = `
-        <div class="post-hero">
-          <div class="post-hero-inner">
-            <div class="post-breadcrumb">
-              <a href="index.html">Blog</a>
-              <span>›</span>
-              <a href="tag.html?tag=${post.Category_Slug || 'general'}">${post.Category || 'General'}</a>
-              <span>›</span>
-              <span>${post.Title}</span>
-            </div>
-            <div class="post-meta-top">
-              ${tagsHtml}
-              <span class="post-date">${formatDate(post.Date)}</span>
-            </div>
-            <h1 class="post-title">${post.Title}</h1>
-            <div class="post-author">
-              <div class="post-author-avatar">${initials}</div>
-              <span class="post-author-name">By ${post.Author}</span>
-            </div>
-          </div>
-        </div>
-
-        ${featuredImg}
-
-        <div class="post-layout">
-          <article class="post-article">
-            ${bodyHtml}
-            <div class="post-tags-footer">
-              <span class="post-tags-footer-label">Tags:</span>
-              ${tagsFooter}
-            </div>
-          </article>
-          <aside class="post-sidebar">
-            ${tocHtml}
-          </aside>
-        </div>
-      `;
-    }
-
-    function renderNotFound(slug) {
-      document.getElementById('app').innerHTML = `
-        <div class="loading-screen">
-          <h2 style="font-family:var(--beluga-font-heading);font-size:2rem;">Post not found</h2>
-          <p style="color:rgba(28,4,69,0.5);">No post found with slug "<strong>${slug}</strong>".</p>
-          <a href="/blog" style="margin-top:1rem;background:var(--beluga-color-primary);color:#fff;padding:12px 28px;border-radius:37px;font-weight:600;">← Back to Blog</a>
-        </div>
-      `;
-    }
-
-    // ── Init ──
-    const slug = getSlugFromUrl();
 
     Papa.parse(CSV_URL, {
       download: true,
       header: true,
       complete: function(results) {
-        const post = results.data.find(row =>
-          row.Record_Type === 'post_detail' && row.Slug === slug
-        );
+        const post = results.data.find(r => r.Record_Type === 'post_detail' && r.Slug === slug);
         if (post) {
-          renderPost(post);
+          document.title = post.Title + ' — Beluga Blog';
+          document.getElementById('post-title').textContent = post.Title;
+          document.getElementById('post-category').textContent = post.Category;
+          document.getElementById('post-author').textContent = 'By ' + post.Author;
+          document.getElementById('post-date').textContent = formatDate(post.Date);
+          
+          const md = post.Markdown_Body || '';
+          // Remove featured image from body if it's already used as hero (optional, here we just render all)
+          document.getElementById('post-body').innerHTML = marked.parse(md);
+
+          if (post.Tags) {
+            const tags = post.Tags.split(',').map(t => t.trim());
+            document.getElementById('post-tags').innerHTML = tags.map(t => 
+              `<a href="tag.html?tag=${encodeURIComponent(t)}" class="tag-pill">#${t}</a>`
+            ).join('');
+          }
         } else {
-          // Demo fallback: use first post_detail
-          const demo = results.data.find(r => r.Record_Type === 'post_detail');
-          if (demo) renderPost(demo);
-          else renderNotFound(slug);
+          document.getElementById('post-title').textContent = 'Post not found';
         }
-      },
-      error: function() {
-        document.getElementById('app').innerHTML = `<div class="loading-screen"><p>Error loading content. Please try again.</p></div>`;
       }
     });
   </script>
