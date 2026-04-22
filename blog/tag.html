@@ -3,94 +3,326 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO (updated dynamically once tag loads) -->
   <title id="page-title">Tag — Beluga Blog</title>
+  <meta name="description" id="meta-desc" content="Explore articles tagged on the Beluga Linguistics blog.">
+  <meta name="robots" content="index,follow">
+  <meta name="keywords" id="meta-kw" content="">
+  <meta name="author" content="Beluga Linguistics">
+  <meta name="publisher" content="Beluga Linguistics">
+  <meta name="copyright" content="© 2025 Beluga Linguistics">
+  <meta name="language" content="en">
+  <link rel="canonical" id="canonical" href="https://belugalinguistics.com/blog">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Beluga Linguistics">
+  <meta property="og:title" id="og-title" content="Tag — Beluga Blog">
+  <meta property="og:description" id="og-desc" content="Explore articles tagged on the Beluga Linguistics blog.">
+  <meta property="og:url" id="og-url" content="https://belugalinguistics.com/blog">
+  <meta property="og:image" content="https://belugalinguistics.com/assets/blog-og-default.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Beluga Linguistics Blog">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@belugalinguistics">
+  <meta name="twitter:creator" content="@belugalinguistics">
+  <meta name="twitter:title" id="tw-title" content="Tag — Beluga Blog">
+  <meta name="twitter:description" id="tw-desc" content="Explore articles tagged on the Beluga Linguistics blog.">
+  <meta name="twitter:image" content="https://belugalinguistics.com/assets/blog-og-default.jpg">
+  <meta name="twitter:image:alt" content="Beluga Linguistics Blog">
+
+  <!-- Fonts & Libraries -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <style>
-    :root {
-      --primary: #1C0445; --secondary: #fff; --accent: #FFD100;
-      --muted: #F2F0EF; --surface: #FCFCFC; --info: #0C6FF9;
-      --font-h: 'Libre Baskerville', serif; --font-b: 'Inter', sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font-b); background: var(--surface); color: var(--primary); line-height: 1.7; }
-    a { color: inherit; text-decoration: none; }
-    .nav { background: var(--primary); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; position: sticky; top: 0; z-index: 100; }
-    .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-family: var(--font-h); font-weight: 700; }
-    .nav-logo svg { width: 32px; height: 33px; }
-    
-    .hero { background: var(--primary); color: #fff; padding: 4rem 2rem; text-align: center; }
-    .hero h1 { font-family: var(--font-h); font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .hero p { color: rgba(255,255,255,0.6); }
+    :root{--primary:#1C0445;--secondary:#fff;--accent:#FFD100;--muted:#F2F0EF;--surface:#FCFCFC;--info:#0C6FF9;--font-h:'Libre Baskerville',serif;--font-b:'Inter',sans-serif;--r-btn:37px;--tr:all 0.15s linear}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-b);background:var(--surface);color:var(--primary);line-height:1.7}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
 
-    .main { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
-    
-    .card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.2s; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-    .card-img { aspect-ratio: 16/9; background: var(--muted); }
-    .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .card-body { padding: 1.5rem; }
-    .card-title { font-family: var(--font-h); font-size: 1.25rem; margin-bottom: 0.75rem; }
-    .card-meta { font-size: 0.8rem; color: #888; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
+    /* Nav */
+    .nav{background:var(--primary);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:68px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px}
+    .nav-logo svg{width:32px;height:33px}
+    .nav-logo span{font-family:var(--font-h);font-weight:700;font-size:1.2rem;color:#fff}
+    .nav-links{display:flex;gap:2rem;align-items:center}
+    .nav-link{color:rgba(255,255,255,.75);font-size:.9rem;font-weight:500;transition:var(--tr)}
+    .nav-link:hover{color:var(--accent)}
+    .nav-cta{background:var(--accent);color:var(--primary);font-weight:600;font-size:.875rem;padding:10px 24px;border-radius:var(--r-btn);transition:var(--tr)}
+    .nav-cta:hover{background:#e8be00}
 
-    .footer { background: var(--primary); color: rgba(255,255,255,0.5); text-align: center; padding: 3rem; margin-top: 4rem; }
+    /* Tag Hero */
+    .tag-hero{background:var(--primary);padding:5rem 2rem;text-align:center;position:relative;overflow:hidden}
+    .tag-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(255,209,0,.08) 0%,transparent 65%)}
+    .tag-hero-inner{position:relative;z-index:1}
+    .tag-hero-back{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.55);font-size:.85rem;margin-bottom:2rem;transition:var(--tr)}
+    .tag-hero-back:hover{color:var(--accent)}
+    .tag-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,209,0,.12);border:1px solid rgba(255,209,0,.25);border-radius:30px;padding:6px 18px;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem}
+    .tag-badge svg{width:14px;height:14px}
+    .tag-hero h1{font-family:var(--font-h);font-weight:800;font-size:clamp(2rem,5vw,3rem);color:#fff;margin-bottom:1rem;line-height:1.15}
+    .tag-hero p{color:rgba(255,255,255,.6);font-size:1rem;max-width:480px;margin:0 auto 2rem}
+    .tag-count{display:inline-block;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-size:.85rem;padding:6px 16px;border-radius:20px}
+
+    /* Related tags */
+    .related-tags-bar{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.06);padding:1.25rem 2rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+    .related-label{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em}
+    .related-tag{font-size:.8rem;color:rgba(255,255,255,.55);background:rgba(255,255,255,.06);padding:5px 14px;border-radius:20px;transition:var(--tr)}
+    .related-tag:hover{background:rgba(255,209,0,.15);color:var(--accent)}
+    .related-tag.current{background:var(--accent);color:var(--primary);font-weight:600}
+
+    /* Main */
+    .tag-main{max-width:1100px;margin:0 auto;padding:3.5rem 2rem 5rem}
+    .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem}
+    .section-title{font-family:var(--font-h);font-weight:800;font-size:1.5rem}
+
+    /* Grid */
+    .posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem}
+    
+    /* Card - same as listing */
+    .post-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(28,4,69,.07);transition:var(--tr);display:flex;flex-direction:column}
+    .post-card:hover{box-shadow:0 12px 40px rgba(28,4,69,.14);transform:translateY(-3px)}
+    .card-image{aspect-ratio:16/9;overflow:hidden;background:var(--muted)}
+    .card-image img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+    .post-card:hover .card-image img{transform:scale(1.04)}
+    .card-image-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary),#3a1470)}
+    .card-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+    .card-meta{display:flex;align-items:center;gap:10px;margin-bottom:.875rem}
+    .card-cat{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--info);background:rgba(12,111,249,.08);padding:3px 10px;border-radius:12px}
+    .card-date{font-size:.75rem;color:rgba(28,4,69,.45)}
+    .card-title{font-family:var(--font-h);font-weight:700;font-size:1.1rem;line-height:1.35;color:var(--primary);margin-bottom:.75rem;transition:var(--tr)}
+    .post-card:hover .card-title{color:#3a1470}
+    .card-desc{font-size:.875rem;color:rgba(28,4,69,.65);line-height:1.65;flex:1;margin-bottom:1.25rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--muted)}
+    .card-author{display:flex;align-items:center;gap:8px}
+    .card-avatar{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+    .card-author-name{font-size:.775rem;color:rgba(28,4,69,.6)}
+    .card-read{font-size:.775rem;font-weight:600;color:var(--primary);transition:var(--tr)}
+    .card-read:hover{color:var(--info)}
+
+    /* Spinner */
+    .spinner-wrap{display:flex;align-items:center;justify-content:center;padding:5rem;grid-column:1/-1}
+    .spinner{width:36px;height:36px;border:3px solid var(--muted);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Empty */
+    .empty-state{text-align:center;padding:4rem 2rem;grid-column:1/-1}
+    .empty-icon{font-size:2.5rem;margin-bottom:.75rem}
+
+    /* CTA Section */
+    .tag-cta{background:linear-gradient(135deg,var(--primary) 0%,#3a1470 100%);padding:4rem 2rem;text-align:center;margin-top:3rem;border-radius:24px}
+    .tag-cta h2{font-family:var(--font-h);font-weight:800;font-size:1.75rem;color:#fff;margin-bottom:.75rem}
+    .tag-cta p{color:rgba(255,255,255,.65);margin-bottom:1.75rem;font-size:.95rem}
+    .btn-accent{display:inline-block;background:var(--accent);color:var(--primary);font-weight:700;font-size:.9rem;padding:14px 32px;border-radius:var(--r-btn);transition:var(--tr)}
+    .btn-accent:hover{background:#e8be00;transform:translateY(-1px)}
+
+    /* Footer */
+    .site-footer{background:var(--primary);color:rgba(255,255,255,.6);text-align:center;padding:2rem;font-size:.875rem}
+    .site-footer a{color:var(--accent)}
+
+    @media(max-width:991px){.posts-grid{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}}
+    @media(max-width:640px){.posts-grid{grid-template-columns:1fr}.tag-hero{padding:3.5rem 1rem}}
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <a href="../" class="nav-logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635"><path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/><path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/></svg>
-      <span>Beluga</span>
-    </a>
-  </nav>
 
-  <header class="hero">
-    <h1 id="tag-title">Tag</h1>
-    <p id="tag-count">Finding articles...</p>
-  </header>
+<nav class="nav">
+  <a href="/blog" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 635">
+      <path fill="#FFD100" d="M 596.00 624.50 L 528.00 624.50 L 519.00 620.50 L 510.50 611.00 L 306.00 172.50 L 303.50 175.00 L 102.50 609.00 L 93.00 620.50 L 84.00 624.50 L 19.00 624.50 L 14.00 622.50 L 10.50 618.00 L 10.50 608.00 L 17.50 590.00 L 271.50 55.00 L 288.50 22.00 L 300.00 10.50 L 311.00 9.50 L 315.00 11.50 L 324.50 22.00 L 333.50 38.00 L 348.50 72.00 L 601.50 598.00 L 605.50 610.00 L 605.50 617.00 L 601.00 622.50 L 596.00 624.50 Z"/>
+      <path fill="#FFD100" d="M 308.00 537.50 L 303.00 536.50 L 297.50 531.00 L 249.50 453.00 L 243.50 442.00 L 243.50 435.00 L 245.00 433.50 L 367.00 432.50 L 369.50 434.00 L 370.50 441.00 L 366.50 449.00 L 320.50 524.00 L 314.50 533.00 L 308.00 537.50 Z"/>
+    </svg>
+    <span>Beluga</span>
+  </a>
+  <div class="nav-links">
+    <a href="/blog" class="nav-link">Blog</a>
+    <a href="#" class="nav-link">Services</a>
+    <a href="#" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
 
-  <main class="main">
-    <div class="grid" id="grid"></div>
-  </main>
+<div id="app">
+  <div style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 68px)">
+    <div class="spinner"></div>
+  </div>
+</div>
 
-  <footer class="footer">
-    <p>© 2025 Beluga Linguistics</p>
-  </footer>
+<footer class="site-footer">
+  <p>© 2025 <a href="/">Beluga Linguistics</a>. All rights reserved.</p>
+</footer>
 
-  <script>
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
-    
-    const tag = new URLSearchParams(window.location.search).get('tag');
-    document.getElementById('tag-title').textContent = '#' + tag;
-    document.title = '#' + tag + ' — Beluga Blog';
+<script>
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsvVPDLKP4ARheOl_yeyj9OcITIE5D9u1X9wtQlqCRrtm2YO-ti-dUrI5Xgxj22RtfwbTCQVp9qwyv/pub?gid=283028482&single=true&output=csv';
 
-    Papa.parse(CSV_URL, {
-      download: true,
-      header: true,
-      complete: function(results) {
-        const posts = results.data.filter(r => 
-          r.Record_Type === 'post_detail' && 
-          (r.Tags || '').split(',').map(t => t.trim()).includes(tag)
-        );
-        
-        document.getElementById('tag-count').textContent = `${posts.length} article${posts.length !== 1 ? 's' : ''} tagged with #${tag}`;
-        
-        document.getElementById('grid').innerHTML = posts.map(p => `
-          <article class="card">
-            <a href="post.html?slug=${p.Slug}" class="card-img">
-              <img src="${p.Image || 'https://placehold.co/600x400/1C0445/FFFFFF?text=Beluga'}" alt="">
-            </a>
-            <div class="card-body">
-              <div class="card-meta">${p.Category}</div>
-              <a href="post.html?slug=${p.Slug}"><h2 class="card-title">${p.Title}</h2></a>
-              <p style="font-size:0.9rem; color:#666">${p.Description.substring(0, 100)}...</p>
-            </div>
-          </article>
-        `).join('');
-      }
-    });
-  </script>
+function getTagFromUrl() {
+  // /blog/tag/my-tag
+  const parts = window.location.pathname.replace(/\/$/,'').split('/');
+  return decodeURIComponent(parts[parts.length - 1]);
+}
+
+function formatDate(s) {
+  if (!s) return '';
+  const d = new Date(s);
+  if (isNaN(d)) return s;
+  return d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+}
+
+function initials(name) {
+  return (name||'B').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+}
+
+function cleanDesc(text) {
+  return (text||'').replace(/!\[.*?\]\(.*?\)/g,'').replace(/[#*_`]/g,'').trim();
+}
+
+function buildCards(posts) {
+  if (!posts.length) return `
+    <div class="empty-state">
+      <div class="empty-icon">🏷️</div>
+      <h3 style="font-family:var(--font-h);margin-bottom:.5rem">No posts with this tag</h3>
+      <p style="color:rgba(28,4,69,.5)">Check back later or <a href="/blog" style="color:var(--info)">browse all posts</a>.</p>
+    </div>`;
+
+  return posts.map(p => {
+    const imgHtml = p.Image
+      ? `<img src="${p.Image}" alt="${p.Image_Alt||p.Title}" loading="lazy">`
+      : `<div class="card-image-placeholder"><svg width="40" height="40" viewBox="0 0 616 635" fill="rgba(255,255,255,.15)"><path d="M596 624.5L528 624.5L519 620.5L510.5 611L306 172.5L303.5 175L102.5 609L93 620.5L84 624.5L19 624.5L14 622.5L10.5 618L10.5 608L17.5 590L271.5 55L288.5 22L300 10.5L311 9.5L315 11.5L324.5 22L333.5 38L348.5 72L601.5 598L605.5 610L605.5 617L601 622.5L596 624.5Z"/></svg></div>`;
+
+    return `
+    <article class="post-card">
+      <a href="${p.Url||'#'}" class="card-image">${imgHtml}</a>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-cat">${p.Category||'General'}</span>
+          <span class="card-date">${formatDate(p.Date)}</span>
+        </div>
+        <a href="${p.Url||'#'}"><h2 class="card-title">${p.Title}</h2></a>
+        <p class="card-desc">${cleanDesc(p.Description)}</p>
+        <div class="card-footer">
+          <div class="card-author">
+            <div class="card-avatar">${initials(p.Author)}</div>
+            <span class="card-author-name">${p.Author||'Beluga'}</span>
+          </div>
+          <a href="${p.Url||'#'}" class="card-read">Read →</a>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+Papa.parse(CSV_URL, {
+  download: true, header: true,
+  complete(results) {
+    const currentTag = getTagFromUrl();
+
+    // Get all tag_index slugs for related tags bar
+    const tagIndexes = results.data.filter(r => r.Record_Type === 'tag_index');
+
+    // Get posts for this tag from tag_post records
+    const tagPosts = results.data.filter(r =>
+      r.Record_Type === 'tag_post' &&
+      r.Parent_Slug === currentTag
+    );
+
+    // Find tag display name
+    const tagIndex = tagIndexes.find(r => r.Slug === currentTag);
+    const tagName = tagIndex ? tagIndex.Title : currentTag;
+    const count = tagPosts.length;
+    const tagUrl = 'https://belugalinguistics.com/blog/tag/' + currentTag;
+    const tagDesc = 'Explore ' + count + ' article' + (count !== 1 ? 's' : '') + ' tagged with \u201c' + tagName + '\u201d on the Beluga Linguistics blog.';
+
+    // ── Dynamic SEO update ────────────────────────────────────────
+    document.title = '#' + tagName + ' — Beluga Blog';
+    document.getElementById('page-title').textContent = '#' + tagName + ' — Beluga Blog';
+    document.getElementById('meta-desc').setAttribute('content', tagDesc);
+    document.getElementById('meta-kw').setAttribute('content', tagName + ', localization, translation, language services');
+    document.getElementById('canonical').setAttribute('href', tagUrl);
+    document.getElementById('og-title').setAttribute('content', '#' + tagName + ' — Beluga Blog');
+    document.getElementById('og-desc').setAttribute('content', tagDesc);
+    document.getElementById('og-url').setAttribute('content', tagUrl);
+    document.getElementById('tw-title').setAttribute('content', '#' + tagName + ' — Beluga Blog');
+    document.getElementById('tw-desc').setAttribute('content', tagDesc);
+
+    // ── Schema.org ───────────────────────────────────────────────
+    const schema = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          '@id': tagUrl + '#webpage',
+          'url': tagUrl,
+          'name': '#' + tagName + ' — Beluga Blog',
+          'description': tagDesc,
+          'publisher': { '@id': 'https://belugalinguistics.com/#organization' },
+          'isPartOf': { '@id': 'https://belugalinguistics.com/#website' },
+          'breadcrumb': {
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+              { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://belugalinguistics.com' },
+              { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': 'https://belugalinguistics.com/blog' },
+              { '@type': 'ListItem', 'position': 3, 'name': '#' + tagName, 'item': tagUrl }
+            ]
+          }
+        },
+        {
+          '@type': 'Organization',
+          '@id': 'https://belugalinguistics.com/#organization',
+          'name': 'Beluga Linguistics',
+          'url': 'https://belugalinguistics.com',
+          'logo': { '@type': 'ImageObject', 'url': 'https://belugalinguistics.com/assets/beluga-logo.svg' },
+          'sameAs': ['https://www.linkedin.com/company/beluga-linguistics','https://twitter.com/belugalinguistics']
+        }
+      ]
+    };
+    const s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify(schema);
+    document.head.appendChild(s);
+
+    // Related tags bar
+    const relatedHtml = tagIndexes.map(t => `
+      <a href="/blog/tag/${t.Slug}" class="related-tag ${t.Slug === currentTag ? 'current' : ''}">#${t.Title||t.Slug}</a>
+    `).join('');
+
+    document.getElementById('app').innerHTML = `
+      <section class="tag-hero">
+        <div class="tag-hero-inner">
+          <a href="/blog" class="tag-hero-back">← Back to Blog</a>
+          <div class="tag-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            Tag
+          </div>
+          <h1>#${tagName}</h1>
+          <p>Articles tagged with "${tagName}" — explore related content below.</p>
+          <span class="tag-count">${count} article${count!==1?'s':''}</span>
+        </div>
+        ${relatedHtml ? `<div class="related-tags-bar"><span class="related-label">All tags:</span>${relatedHtml}</div>` : ''}
+      </section>
+
+      <main class="tag-main">
+        <div class="section-header">
+          <h2 class="section-title">Articles tagged "#${tagName}"</h2>
+        </div>
+        <div class="posts-grid">${buildCards(tagPosts)}</div>
+
+        <div class="tag-cta">
+          <h2>Get expert insights delivered</h2>
+          <p>Join thousands of localization professionals who read the Beluga blog.</p>
+          <a href="/blog" class="btn-accent">Browse all articles</a>
+        </div>
+      </main>
+    `;
+  },
+  error() {
+    document.getElementById('app').innerHTML = `<div style="text-align:center;padding:5rem"><p>Error loading content.</p></div>`;
+  }
+});
+</script>
 </body>
 </html>
